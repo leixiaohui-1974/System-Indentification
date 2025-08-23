@@ -5,6 +5,7 @@ to solve the 1D Saint-Venant equations.
 """
 import numpy as np
 import logging
+from copy import deepcopy
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +83,16 @@ class FVMChannelModel:
 
         self.h = np.maximum(h, 0)
         self.A = self._area(self.h)
+
+    def _get_depth_from_area_scalar(self, A_scalar):
+        """Scalar version of _update_depth_from_area for a single area value."""
+        h = 1.0 # Initial guess
+        for _ in range(5):
+            f = self.side_slope * h**2 + self.bottom_width * h - A_scalar
+            fp = 2 * self.side_slope * h + self.bottom_width
+            if abs(fp) < 1e-6: return h
+            h = h - f / fp
+        return max(h, 0)
 
     def _calculate_hydro_vars(self):
         """Calculates and returns key hydraulic variables from the state vector U."""
@@ -243,3 +254,23 @@ class FVMChannelModel:
     def get_state(self):
         """Returns the current state of the channel (excluding ghost cells)."""
         return {'h': self.h[1:-1], 'Q': self.Q[1:-1]}
+
+    def __deepcopy__(self, memo):
+        """
+        Custom deepcopy implementation to handle the unpickleable config module.
+        """
+        # Create a new instance without calling __init__ to avoid re-initializing
+        cls = self.__class__
+        result = cls.__new__(cls)
+        memo[id(self)] = result
+
+        # Manually copy attributes
+        for k, v in self.__dict__.items():
+            if k == 'config':
+                # Don't deepcopy the config module, just copy the reference
+                setattr(result, k, v)
+            else:
+                # Deepcopy all other attributes, which should be safe (numpy arrays, etc.)
+                setattr(result, k, deepcopy(v, memo))
+
+        return result

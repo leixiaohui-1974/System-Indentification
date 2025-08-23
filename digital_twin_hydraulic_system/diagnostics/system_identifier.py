@@ -77,3 +77,94 @@ class SystemIdentifier:
             'model_b_params': {'a1': self.rls_theta[0], 'b1': self.rls_theta[1]},
             'model_a_params': self.kf_param_estimate
         }
+
+from copy import deepcopy
+
+class ExtendedKalmanFilter:
+    def __init__(self, fvm_model, x_initial, P_initial, Q, R):
+        """
+        Initializes the Extended Kalman Filter.
+
+        Args:
+            fvm_model: An instance of the FVMChannelModel to be used as the state transition function.
+            x_initial (np.ndarray): Initial state estimate vector.
+            P_initial (np.ndarray): Initial state covariance matrix.
+            Q (np.ndarray): Process noise covariance matrix.
+            R (np.ndarray): Measurement noise covariance matrix.
+        """
+        self.fvm_model = fvm_model
+        self.x = x_initial
+        self.P = P_initial
+        self.Q = Q
+        self.R = R
+        self.n = len(x_initial)
+
+        logger.info(f"EKF initialized with state vector size n={self.n}")
+
+    def _calculate_F_jacobian_numerical(self, dt, upstream_bc, downstream_bc):
+        """Numerically approximates the Jacobian of the FVM step function."""
+        F_jac = np.zeros((self.n, self.n))
+        epsilon = 1e-6 # Small perturbation
+
+        # Base step
+        model_copy = deepcopy(self.fvm_model)
+        model_copy.U = self._state_to_U(self.x)
+        model_copy.step(dt, upstream_bc, downstream_bc)
+        x_base_next = self._U_to_state(model_copy.U)
+
+        for j in range(self.n):
+            # Perturb the j-th state variable
+            x_perturbed = self.x.copy()
+            x_perturbed[j] += epsilon
+
+            # Run the perturbed model
+            model_copy_perturbed = deepcopy(self.fvm_model)
+            model_copy_perturbed.U = self._state_to_U(x_perturbed)
+            model_copy_perturbed.step(dt, upstream_bc, downstream_bc)
+            x_perturbed_next = self._U_to_state(model_copy_perturbed.U)
+
+            # Calculate the j-th column of the Jacobian
+            F_jac[:, j] = (x_perturbed_next - x_base_next) / epsilon
+
+        return F_jac
+
+    def predict(self, dt, upstream_bc, downstream_bc):
+        """EKF predict step."""
+        # 1. Calculate Jacobian of F wrt x
+        F_jac = self._calculate_F_jacobian_numerical(dt, upstream_bc, downstream_bc)
+
+        # 2. Predict state covariance
+        self.P = F_jac @ self.P @ F_jac.T + self.Q
+
+        # 3. Predict state estimate by running the FVM model
+        self.fvm_model.U = self._state_to_U(self.x)
+        self.fvm_model.step(dt, upstream_bc, downstream_bc)
+        self.x = self._U_to_state(self.fvm_model.U)
+
+    def update(self, z, H_jac, h_func):
+        """EKF update step."""
+        # 1. Calculate Kalman Gain
+        S = H_jac @ self.P @ H_jac.T + self.R
+        K = self.P @ H_jac.T @ np.linalg.inv(S)
+
+        # 2. Update state estimate with measurement z
+        y = z - h_func(self.x) # Innovation or residual
+        self.x = self.x + K @ y
+
+        # 3. Update state covariance
+        I = np.identity(self.n)
+        self.P = (I - K @ H_jac) @ self.P
+
+    def _state_to_U(self, x):
+        """Converts the 1D state vector back to the 2D U matrix for the FVM model."""
+        nx = self.fvm_model.nx
+        U = np.zeros_like(self.fvm_model.U)
+        # Assuming x is [A_comp, Q_comp] where comp is computational cells
+        U[0, 1:-1] = x[:nx]
+        U[1, 1:-1] = x[nx:]
+        return U
+
+    def _U_to_state(self, U):
+        """Converts the FVM model's 2D U matrix to the 1D state vector."""
+        nx = self.fvm_model.nx
+        return np.concatenate([U[0, 1:-1], U[1, 1:-1]])

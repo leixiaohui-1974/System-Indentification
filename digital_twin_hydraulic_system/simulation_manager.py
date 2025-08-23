@@ -8,7 +8,7 @@ data flow between components, and triggering of events/perturbations.
 
 from . import config
 from .models import FVMChannelModel, IDChannelModel, GateModel
-from .diagnostics import DataPreprocessor, FaultDetector, SystemIdentifier
+from .diagnostics import DataPreprocessor, FaultDetector, SystemIdentifier, ExtendedKalmanFilter
 from .sensor_simulator import SensorSimulator
 from .visualization import Visualizer
 
@@ -16,36 +16,54 @@ import numpy as np
 import time
 import logging
 from . import config
-from .models import FVMChannelModel, IDChannelModel, GateModel
-from .diagnostics import DataPreprocessor, FaultDetector, SystemIdentifier
-from .sensor_simulator import SensorSimulator
-from .visualization import Visualizer
 
 logger = logging.getLogger(__name__)
 
 class SimulationManager:
     def __init__(self, config):
         self.config = config
-
-        # 1. Initialize all components
         logger.info("Initializing components...")
+
+        # --- Component Initialization ---
         self.gate_model = GateModel(config)
-        self.model_a = FVMChannelModel(config) # High-fidelity "real world"
-        self.model_b = IDChannelModel(config)  # Simplified "digital twin"
+        self.model_a = FVMChannelModel(config) # "Real World"
+        self.model_twin_fvm = FVMChannelModel(config) # Twin's internal physics model
+        self.model_b = IDChannelModel(config) # Simplified twin model
 
         self.sensor_sim = SensorSimulator(config)
         self.preprocessor = DataPreprocessor()
         self.identifier = SystemIdentifier(config)
         self.fault_detector = FaultDetector(config, self.gate_model)
-
         self.visualizer = Visualizer()
 
-        # 2. Set initial state
+        # --- EKF Initialization ---
+        nx = self.config.NUM_CELLS
+        n_states = 2 * nx
+
+        # Initial state estimate (from the twin's FVM)
+        x_initial = np.concatenate([self.model_twin_fvm.A[1:-1], self.model_twin_fvm.Q[1:-1]])
+
+        # Initial covariance: diagonal, assuming some initial uncertainty
+        P_initial = np.identity(n_states) * 0.1
+
+        # Process noise covariance Q
+        Q = np.identity(n_states) * self.config.PROCESS_NOISE_Q_FACTOR
+
+        # Measurement noise covariance R
+        # Assuming 2 measurements: h_gate_up, q_gate_down
+        # Their variances are based on sensor noise levels
+        r_h = self.config.NOISE_LEVEL_WATER_LEVEL**2
+        r_q = self.config.NOISE_LEVEL_FLOW**2
+        R = np.diag([r_h, r_q]) * self.config.MEASUREMENT_NOISE_R_FACTOR
+
+        self.ekf = ExtendedKalmanFilter(self.model_twin_fvm, x_initial, P_initial, Q, R)
+
+        # --- General State Initialization ---
         self.gate_opening = config.GATE_INITIAL_OPENING
         self.identified_params = self.identifier.get_identified_params()
         self.perturbations = []
 
-        logger.info("Simulation Manager initialized successfully.")
+        logger.info("Simulation Manager initialized successfully with EKF.")
 
     def add_perturbation(self, event_time, event_type, **kwargs):
         """Adds a scenario event to the simulation timeline."""
@@ -69,121 +87,106 @@ class SimulationManager:
         else:
             logger.warning(f"Unknown perturbation type '{p_type}'")
 
+    def _get_observation_model(self, state_vector):
+        """
+        Calculates the expected sensor readings (h_func) and the observation
+        Jacobian (H_jac) from the current state vector.
+        """
+        nx = self.config.NUM_CELLS
+        n_states = 2 * nx
+
+        # We observe h_gate_up (from A_nx) and q_gate_down (which is Q_nx)
+        H_jac = np.zeros((2, n_states))
+
+        # 1. Derivative of h_gate_up wrt A_nx
+        A_nx = state_vector[nx-1]
+        h_nx = self.model_twin_fvm._get_depth_from_area_scalar(A_nx)
+        b = self.config.CHANNEL_BOTTOM_WIDTH
+        z = self.config.CHANNEL_SIDE_SLOPE
+        # dh/dA = 1 / (b + 2zh)
+        H_jac[0, nx-1] = 1.0 / (b + 2 * z * h_nx) if (b + 2 * z * h_nx) > 1e-6 else 0.0
+
+        # 2. Derivative of q_gate_down wrt Q_nx
+        H_jac[1, 2*nx-1] = 1.0
+
+        # This function calculates what the sensors should read given a state vector
+        def h_func(x):
+            h = self.model_twin_fvm._get_depth_from_area_scalar(x[nx-1])
+            q = x[2*nx-1]
+            return np.array([h, q])
+
+        return h_func, H_jac
+
     def run_simulation(self):
         """
-        Executes the main simulation loop using an adaptive timestep.
+        Executes the main simulation loop, now driven by the EKF.
         """
-        logger.info(f"Starting simulation for {self.config.SIMULATION_DURATION} seconds...")
+        logger.info(f"Starting EKF simulation for {self.config.SIMULATION_DURATION} seconds...")
 
         timestamp = 0.0
         p_idx = 0
-        log_time_tracker = -100 # To ensure the first log prints at T=0
+        log_time_tracker = -100
 
-        # Initialize the downstream boundary condition (water level at the gate)
+        # Initial downstream BC for the 'real' model
         h_true_gate_upstream = self.config.INITIAL_WATER_DEPTH
 
         while timestamp < self.config.SIMULATION_DURATION:
-            # 1. Get adaptive timestep from the FVM model
+            # Determine timestep, ensuring it doesn't overshoot the end time
             dt = self.model_a._calculate_cfl_dt()
+            if timestamp + dt > self.config.SIMULATION_DURATION:
+                dt = self.config.SIMULATION_DURATION - timestamp
 
-            # 2. Check for and apply scheduled perturbations
+            # --- Perturbation Step ---
             if p_idx < len(self.perturbations) and timestamp >= self.perturbations[p_idx]['time']:
                 event = self.perturbations[p_idx]
                 self._apply_perturbation(event['type'], event['params'])
                 p_idx += 1
 
-            # 3. Define boundary conditions and step the "Real World" Model (Model A)
-            upstream_bc = {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}
-            # The downstream BC is the water level at the gate from the *previous* timestep
-            downstream_bc = {'type': 'fixed_depth', 'value': h_true_gate_upstream}
-            self.model_a.step(dt, upstream_bc, downstream_bc)
+            # --- "Real World" Model Step ---
+            real_upstream_bc = {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}
+            real_downstream_bc = {'type': 'fixed_depth', 'value': h_true_gate_upstream}
+            self.model_a.step(dt, real_upstream_bc, real_downstream_bc)
 
-            # 4. Extract True Values from Model A for the sensors
-            # The gate is at the downstream end of the channel, so we use the last cell's state.
             model_a_state = self.model_a.get_state()
             h_true_gate_upstream = model_a_state['h'][-1]
-
-            # The "downstream" sensor is located some distance after the gate.
-            # In this simplified setup, we assume a constant tailwater depth.
             h_true_gate_downstream = self.config.INITIAL_WATER_DEPTH
+            q_true_gate = self.gate_model.calculate_flow(h_true_gate_upstream, h_true_gate_downstream, self.gate_opening, self.config.GATE_DISCHARGE_COEFFICIENT_TRUE)
+            true_values = {'h_gate_up': h_true_gate_upstream, 'q_gate_down': q_true_gate}
 
-            # The flow through the gate is calculated by the gate model
-            q_true_gate = self.gate_model.calculate_flow(
-                h_up=h_true_gate_upstream,
-                h_down=h_true_gate_downstream,
-                opening=self.gate_opening,
-                Cq=self.config.GATE_DISCHARGE_COEFFICIENT_TRUE
-            )
+            # --- EKF Cycle: Predict and Update ---
+            # 1. Predict the twin's state
+            twin_upstream_bc = {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}
+            # The twin's downstream BC is its own last known water depth
+            h_twin_gate_up = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1])
+            twin_downstream_bc = {'type': 'fixed_depth', 'value': h_twin_gate_up}
+            self.ekf.predict(dt, twin_upstream_bc, twin_downstream_bc)
 
-            true_values = {
-                'h_gate_up': h_true_gate_upstream,
-                'h_gate_down': h_true_gate_downstream,
-                'q_gate_down': q_true_gate
-            }
-
-            # 5. Simulate and Process Sensor Data
+            # 2. Get sensor readings and update the EKF estimate
             raw_readings = self.sensor_sim.get_readings(true_values, dt)
-            cleaned_readings = self.preprocessor.filter(raw_readings)
+            # For the EKF, we assume we have sensors for the states we want to correct
+            z = np.array([raw_readings.get('h_gate_up', 0), raw_readings.get('q_gate_down', 0)])
 
-            # 6. Update and Step Digital Twin (Model B) to get prediction
-            self.identified_params = self.identifier.get_identified_params()
-            self.model_b.update_params(self.identified_params['model_b_params'])
+            h_func, H_jac = self._get_observation_model(self.ekf.x)
+            self.ekf.update(z, H_jac, h_func)
 
-            q_input_for_b = self.gate_model.calculate_flow(
-                h_up=h_true_gate_upstream,
-                h_down=h_true_gate_downstream,
-                opening=self.gate_opening,
-                Cq=self.config.INITIAL_GATE_COEFF_GUESS # Using initial guess as it's not identified online yet
-            )
-            model_b_prediction = self.model_b.step(dt, q_input_for_b)
-            model_b_predictions = {'h_gate_down': model_b_prediction}
-
-            # 7. Diagnose Faults using sensor data and twin's prediction
-            gate_cq_est = self.config.INITIAL_GATE_COEFF_GUESS
-            reliable_data, status_msg = self.fault_detector.diagnose(
-                cleaned_readings, model_b_predictions, self.gate_opening, gate_cq_est
-            )
-
-            # 8. System Identification (if data is reliable)
-            if 'h_gate_down' in reliable_data and 'q_gate_down' in reliable_data:
-                y_k = reliable_data['h_gate_down']
-                if len(self.model_b.input_buffer) > self.model_b.delay_steps:
-                    delayed_input = self.model_b.input_buffer[self.model_b.delay_steps]
-                    phi_k = np.array([self.model_b.h_down_prev, delayed_input])
-                    self.identifier.run_rls_step(y_k, phi_k)
-
-            # 9. Log and Print Status
-            # 9. Log and Print Status
-            if self.visualizer.plot_profiles:
-                log_state = {'h_profile': self.model_a.get_state()['h']}
-            else:
-                log_state = {
-                    'h_true': h_true_gate_downstream,
-                    'h_twin': model_b_prediction,
-                    'param_a1': self.identified_params['model_b_params']['a1'],
-                    'param_b1': self.identified_params['model_b_params']['b1'],
-                    'status': status_msg
-                }
-            self.visualizer.log_state(timestamp, log_state)
-
-            if timestamp - log_time_tracker >= 20: # Log more frequently for dam break
-                current_h_profile = self.model_a.get_state()['h']
+            # --- Logging and Visualization ---
+            if timestamp - log_time_tracker >= 50:
+                nx = self.config.NUM_CELLS
+                h_twin_best_estimate = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
                 log_msg = (
-                    f"T={timestamp:5.1f}s | dt={dt:.3f}s | "
-                    f"h_upstream={current_h_profile[0]:.3f}, h_gate_up={current_h_profile[-1]:.3f}"
+                    f"T={timestamp:5.1f}s | "
+                    f"h_true={h_true_gate_upstream:.3f}, h_twin_est={h_twin_best_estimate:.3f}"
                 )
                 logger.info(log_msg)
                 log_time_tracker = timestamp
 
-            # 10. Advance time
+            # Log data for plotting
+            self.visualizer.log_state(timestamp, {
+                'h_true': h_true_gate_upstream,
+                'h_twin': self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1])
+            })
+
             timestamp += dt
 
         logger.info("Simulation finished.")
-
-        # 11. Visualize Results
-        if self.visualizer.plot_profiles:
-            self.visualizer.plot_water_profiles()
-        else:
-            self.visualizer.plot_water_levels()
-            self.visualizer.plot_parameter_convergence('param_a1')
-            self.visualizer.plot_parameter_convergence('param_b1')
+        self.visualizer.plot_water_levels()

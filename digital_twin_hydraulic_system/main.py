@@ -22,7 +22,8 @@ def run_sensor_fault_scenario():
         event_time=1500,
         event_type='sensor_fault',
         sensor_id='q_gate_down',
-        fault_type='stuck_at_zero'
+        fault_type='stuck',
+        value=0.0
     )
 
     sim_manager.run_simulation()
@@ -105,6 +106,29 @@ def main():
     # run_combined_scenario()
     # run_dam_break_scenario()
     # run_noise_fault_scenario()
+    # run_ekf_validation_scenario()
+
+def run_ekf_validation_scenario():
+    """
+    Defines and runs a scenario to validate the EKF's performance.
+    It creates a discrepancy between the real world and the twin's model
+    and verifies if the EKF can correct the state estimate.
+    """
+    logger.info("--- Running EKF Validation Scenario ---")
+    config.SIMULATION_DURATION = 1800 # Shorter run for this test
+    sim_manager = SimulationManager(config)
+
+    # 1. Create a discrepancy between the real world and the twin's model
+    true_roughness = 0.035
+    twin_initial_guess = 0.025
+    sim_manager.model_a.manning_n = true_roughness
+    sim_manager.model_twin_fvm.manning_n = twin_initial_guess
+    logger.warning(f"Discrepancy introduced: Real N={true_roughness}, Twin N={twin_initial_guess}")
+
+    # 2. Run the simulation
+    sim_manager.run_simulation()
+    logger.info("--- EKF validation scenario complete. ---")
+
 
 def run_dam_break_scenario():
     """

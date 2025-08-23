@@ -41,9 +41,11 @@ INITIAL_GATE_COEFF_GUESS = 0.55
 # RLS (Recursive Least Squares) parameters
 RLS_FORGETTING_FACTOR = 0.98
 
-# EKF/UKF parameters (placeholders)
-PROCESS_NOISE_COV = 1e-5
-MEASUREMENT_NOISE_COV = 1e-2
+# EKF/UKF parameters
+# Process noise: uncertainty in the FVM model itself
+PROCESS_NOISE_Q_FACTOR = 1e-4
+# Measurement noise: uncertainty in the sensors
+MEASUREMENT_NOISE_R_FACTOR = 1.0
 
 # --- Helper function ---
 def get_channel_dx():
