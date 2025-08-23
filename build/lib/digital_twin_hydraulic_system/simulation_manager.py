@@ -75,16 +75,8 @@ class SimulationManager:
         self.gate_opening = config.GATE_INITIAL_OPENING
         self.identified_params = self.identifier.get_identified_params()
         self.perturbations = []
-        self.reset_simulation_state()
 
         logger.info("Simulation Manager initialized successfully with EKF.")
-
-    def reset_simulation_state(self):
-        """Resets the time-dependent state of the simulation."""
-        self.timestamp = 0.0
-        self.p_idx = 0
-        self.h_true_gate_upstream = self.config.INITIAL_WATER_DEPTH
-        logger.info("Simulation state has been reset.")
 
     def add_perturbation(self, event_time, event_type, **kwargs):
         """Adds a scenario event to the simulation timeline."""
@@ -100,6 +92,7 @@ class SimulationManager:
             self.model_a.manning_n = new_n
             logger.info(f"Model A (real world) Manning's n changed to {new_n}")
         elif p_type == 'sensor_fault':
+            # Pop the main identifiers, pass the rest as fault parameters (e.g., value)
             sensor_id = params.pop('sensor_id', None)
             fault_type = params.pop('fault_type', None)
             if sensor_id and fault_type:
@@ -114,42 +107,56 @@ class SimulationManager:
         """
         nx = self.config.NUM_CELLS
         n_aug = 2 * nx + 1
+
+        # We observe h_gate_up (from A_nx) and q_gate_down (which is Q_nx)
+        # These do not depend directly on n, so the derivative wrt n is 0.
         H_jac = np.zeros((2, n_aug))
+
+        # 1. Derivative of h_gate_up wrt A_nx
         A_nx = state_vector[nx-1]
         h_nx = self.model_twin_fvm._get_depth_from_area_scalar(A_nx)
         b = self.config.CHANNEL_BOTTOM_WIDTH
         z = self.config.CHANNEL_SIDE_SLOPE
         H_jac[0, nx-1] = 1.0 / (b + 2 * z * h_nx) if (b + 2 * z * h_nx) > 1e-6 else 0.0
+
+        # 2. Derivative of q_gate_down wrt Q_nx
         H_jac[1, 2*nx-1] = 1.0
+
         def h_func(x):
             h = self.model_twin_fvm._get_depth_from_area_scalar(x[nx-1])
             q = x[2*nx-1]
             return np.array([h, q])
+
         return h_func, H_jac
 
-    def step_simulation(self, num_steps=1):
+    def run_simulation(self):
         """
-        Executes a given number of simulation steps.
+        Executes the main simulation loop, driven by the EKF for state and parameter estimation.
         """
-        for _ in range(num_steps):
-            if self.timestamp >= self.config.SIMULATION_DURATION:
-                logger.info("Simulation duration reached.")
-                return False # Indicate simulation is finished
+        logger.info(f"Starting EKF simulation for {self.config.SIMULATION_DURATION} seconds...")
 
+        timestamp = 0.0
+        p_idx = 0
+        log_time_tracker = -100
+        h_true_gate_upstream = self.config.INITIAL_WATER_DEPTH
+
+        while timestamp < self.config.SIMULATION_DURATION:
             dt = self.model_a._calculate_cfl_dt()
-            if self.timestamp + dt > self.config.SIMULATION_DURATION:
-                dt = self.config.SIMULATION_DURATION - self.timestamp
+            if timestamp + dt > self.config.SIMULATION_DURATION:
+                dt = self.config.SIMULATION_DURATION - timestamp
 
-            if self.p_idx < len(self.perturbations) and self.timestamp >= self.perturbations[self.p_idx]['time']:
-                self._apply_perturbation(self.perturbations[self.p_idx]['type'], self.perturbations[self.p_idx]['params'])
-                self.p_idx += 1
+            if p_idx < len(self.perturbations) and timestamp >= self.perturbations[p_idx]['time']:
+                self._apply_perturbation(self.perturbations[p_idx]['type'], self.perturbations[p_idx]['params'])
+                p_idx += 1
 
-            self.model_a.step(dt, {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}, {'type': 'fixed_depth', 'value': self.h_true_gate_upstream})
+            # --- "Real World" Step ---
+            self.model_a.step(dt, {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}, {'type': 'fixed_depth', 'value': h_true_gate_upstream})
             model_a_state = self.model_a.get_state()
-            self.h_true_gate_upstream = model_a_state['h'][-1]
-            q_true_gate = self.gate_model.calculate_flow(self.h_true_gate_upstream, self.config.INITIAL_WATER_DEPTH, self.gate_opening, self.config.GATE_DISCHARGE_COEFFICIENT_TRUE)
-            true_values = {'h_gate_up': self.h_true_gate_upstream, 'q_gate_down': q_true_gate}
+            h_true_gate_upstream = model_a_state['h'][-1]
+            q_true_gate = self.gate_model.calculate_flow(h_true_gate_upstream, self.config.INITIAL_WATER_DEPTH, self.gate_opening, self.config.GATE_DISCHARGE_COEFFICIENT_TRUE)
+            true_values = {'h_gate_up': h_true_gate_upstream, 'q_gate_down': q_true_gate}
 
+            # --- EKF Cycle: Predict and Update ---
             h_twin_gate_up = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1])
             self.ekf.predict(dt, {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}, {'type': 'fixed_depth', 'value': h_twin_gate_up})
 
@@ -158,22 +165,23 @@ class SimulationManager:
             h_func, H_jac = self._get_observation_model(self.ekf.x)
             self.ekf.update(z, H_jac, h_func)
 
-            self.visualizer.log_state(self.timestamp, {
-                'h_true': self.h_true_gate_upstream,
+            # --- Logging and Visualization ---
+            if timestamp - log_time_tracker >= 50:
+                nx = self.config.NUM_CELLS
+                h_twin_best_est = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
+                n_est = self.ekf.x[-1]
+                logger.info(f"T={timestamp:5.1f}s | h_true={h_true_gate_upstream:.3f}, h_twin_est={h_twin_best_est:.3f} | n_est={n_est:.4f}")
+                log_time_tracker = timestamp
+
+            self.visualizer.log_state(timestamp, {
+                'h_true': h_true_gate_upstream,
                 'h_twin': self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1]),
                 'n_true': self.model_a.manning_n,
                 'n_est': self.ekf.x[-1]
             })
-            self.timestamp += dt
+            timestamp += dt
 
-        return True # Indicate simulation is ongoing
-
-    def run_full_simulation(self):
-        """Runs the entire simulation from start to finish (for non-interactive modes)."""
-        logger.info(f"Starting full EKF simulation for {self.config.SIMULATION_DURATION} seconds...")
-        self.reset_simulation_state()
-        while self.step_simulation(num_steps=1):
-            pass
-        logger.info("Full simulation finished.")
+        logger.info("Simulation finished.")
         self.visualizer.plot_water_levels()
+        # Add a new plot for parameter convergence
         self.visualizer.plot_parameter_convergence('n_est', 'n_true', 'Manning\'s n')

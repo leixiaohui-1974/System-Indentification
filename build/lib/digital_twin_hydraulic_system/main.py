@@ -26,7 +26,7 @@ def run_sensor_fault_scenario():
         value=0.0
     )
 
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- Sensor fault scenario complete. ---")
 
 def run_roughness_change_scenario():
@@ -43,7 +43,7 @@ def run_roughness_change_scenario():
         new_roughness=0.040
     )
 
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- Roughness change scenario complete. ---")
 
 def run_combined_scenario():
@@ -63,11 +63,10 @@ def run_combined_scenario():
         event_time=2500,
         event_type='sensor_fault',
         sensor_id='q_gate_down',
-        fault_type='stuck',
-        value=0.0
+        fault_type='stuck_at_zero'
     )
 
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- Combined scenario complete. ---")
 
 
@@ -89,7 +88,7 @@ def run_noise_fault_scenario():
         value=config.NOISE_LEVEL_WATER_LEVEL * 5 # 5x the normal noise
     )
 
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- Increased noise fault scenario complete. ---")
 
 def main():
@@ -126,7 +125,7 @@ def run_parameter_estimation_scenario():
     logger.warning(f"Discrepancy introduced: Real N={true_roughness}, Twin N={twin_initial_guess}")
 
     # 2. Run the simulation
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- EKF validation scenario complete. ---")
 
 
@@ -152,7 +151,7 @@ def run_dam_break_scenario():
     # We need a new kind of visualization for this
     sim_manager.visualizer.plot_profiles = True
 
-    sim_manager.run_full_simulation()
+    sim_manager.run_simulation()
     logger.info("--- Dam-break scenario complete. ---")
 
 

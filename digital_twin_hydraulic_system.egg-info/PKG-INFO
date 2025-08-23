@@ -3,3 +3,7 @@ Name: digital_twin_hydraulic_system
 Version: 0.1.0
 Summary: A simulation framework for a hydraulic digital twin with fault diagnosis.
 Author-email: Jules <jules@example.com>
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: streamlit

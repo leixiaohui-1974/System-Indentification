@@ -7,6 +7,12 @@ name = "digital_twin_hydraulic_system"
 version = "0.1.0"
 description = "A simulation framework for a hydraulic digital twin with fault diagnosis."
 authors = [{ name = "Jules", email = "jules@example.com" }]
+dependencies = [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "streamlit",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]
