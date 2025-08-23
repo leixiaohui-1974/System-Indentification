@@ -83,12 +83,14 @@ from copy import deepcopy
 class ExtendedKalmanFilter:
     def __init__(self, fvm_model, x_initial, P_initial, Q, R):
         """
-        Initializes the Extended Kalman Filter.
+        Initializes the Extended Kalman Filter for state and parameter estimation.
+        The state vector x is augmented with parameters to be estimated.
+        x = [A_1, ..., A_nx, Q_1, ..., Q_nx, n_manning]
 
         Args:
-            fvm_model: An instance of the FVMChannelModel to be used as the state transition function.
-            x_initial (np.ndarray): Initial state estimate vector.
-            P_initial (np.ndarray): Initial state covariance matrix.
+            fvm_model: An instance of the FVMChannelModel.
+            x_initial (np.ndarray): Initial augmented state estimate vector.
+            P_initial (np.ndarray): Initial augmented state covariance matrix.
             Q (np.ndarray): Process noise covariance matrix.
             R (np.ndarray): Measurement noise covariance matrix.
         """
@@ -97,74 +99,77 @@ class ExtendedKalmanFilter:
         self.P = P_initial
         self.Q = Q
         self.R = R
-        self.n = len(x_initial)
+        self.n_states = 2 * self.fvm_model.nx # Number of hydraulic states (A, Q)
+        self.n_params = 1 # Number of parameters (just n_manning for now)
+        self.n_aug = self.n_states + self.n_params # Total size of augmented state
 
-        logger.info(f"EKF initialized with state vector size n={self.n}")
+        if len(x_initial) != self.n_aug or P_initial.shape[0] != self.n_aug:
+            raise ValueError("Initial state or covariance matrix has incorrect dimensions.")
+
+        logger.info(f"EKF initialized with augmented state size n={self.n_aug}")
 
     def _calculate_F_jacobian_numerical(self, dt, upstream_bc, downstream_bc):
-        """Numerically approximates the Jacobian of the FVM step function."""
-        F_jac = np.zeros((self.n, self.n))
-        epsilon = 1e-6 # Small perturbation
+        """Numerically approximates the Jacobian of the augmented FVM step function."""
+        F_jac = np.zeros((self.n_aug, self.n_aug))
+        epsilon = 1e-6
 
         # Base step
         model_copy = deepcopy(self.fvm_model)
-        model_copy.U = self._state_to_U(self.x)
+        self._set_model_state(model_copy, self.x)
         model_copy.step(dt, upstream_bc, downstream_bc)
-        x_base_next = self._U_to_state(model_copy.U)
+        x_base_next = self._get_model_state(model_copy)
 
-        for j in range(self.n):
+        for j in range(self.n_aug):
             # Perturb the j-th state variable
             x_perturbed = self.x.copy()
             x_perturbed[j] += epsilon
 
-            # Run the perturbed model
             model_copy_perturbed = deepcopy(self.fvm_model)
-            model_copy_perturbed.U = self._state_to_U(x_perturbed)
+            self._set_model_state(model_copy_perturbed, x_perturbed)
             model_copy_perturbed.step(dt, upstream_bc, downstream_bc)
-            x_perturbed_next = self._U_to_state(model_copy_perturbed.U)
+            x_perturbed_next = self._get_model_state(model_copy_perturbed)
 
-            # Calculate the j-th column of the Jacobian
             F_jac[:, j] = (x_perturbed_next - x_base_next) / epsilon
 
         return F_jac
 
     def predict(self, dt, upstream_bc, downstream_bc):
-        """EKF predict step."""
+        """EKF predict step for the augmented state."""
+        # The parameter part of the state is assumed to be a random walk
+        # n_{k+1} = n_k + w_k, so the prediction is just the old value.
+        # The FVM step handles the hydraulic states.
+
         # 1. Calculate Jacobian of F wrt x
         F_jac = self._calculate_F_jacobian_numerical(dt, upstream_bc, downstream_bc)
 
         # 2. Predict state covariance
         self.P = F_jac @ self.P @ F_jac.T + self.Q
 
-        # 3. Predict state estimate by running the FVM model
-        self.fvm_model.U = self._state_to_U(self.x)
+        # 3. Predict state estimate
+        self._set_model_state(self.fvm_model, self.x)
         self.fvm_model.step(dt, upstream_bc, downstream_bc)
-        self.x = self._U_to_state(self.fvm_model.U)
+        self.x = self._get_model_state(self.fvm_model)
 
     def update(self, z, H_jac, h_func):
-        """EKF update step."""
-        # 1. Calculate Kalman Gain
+        """EKF update step (no changes needed for augmented state here)."""
         S = H_jac @ self.P @ H_jac.T + self.R
         K = self.P @ H_jac.T @ np.linalg.inv(S)
-
-        # 2. Update state estimate with measurement z
-        y = z - h_func(self.x) # Innovation or residual
+        y = z - h_func(self.x)
         self.x = self.x + K @ y
-
-        # 3. Update state covariance
-        I = np.identity(self.n)
+        I = np.identity(self.n_aug)
         self.P = (I - K @ H_jac) @ self.P
 
-    def _state_to_U(self, x):
-        """Converts the 1D state vector back to the 2D U matrix for the FVM model."""
-        nx = self.fvm_model.nx
-        U = np.zeros_like(self.fvm_model.U)
-        # Assuming x is [A_comp, Q_comp] where comp is computational cells
-        U[0, 1:-1] = x[:nx]
-        U[1, 1:-1] = x[nx:]
-        return U
+    def _set_model_state(self, model, x_aug):
+        """Sets the FVM model's state from the augmented state vector."""
+        nx = model.nx
+        model.U[0, 1:-1] = x_aug[:nx]
+        model.U[1, 1:-1] = x_aug[nx:self.n_states]
+        model.manning_n = x_aug[self.n_states]
 
-    def _U_to_state(self, U):
-        """Converts the FVM model's 2D U matrix to the 1D state vector."""
-        nx = self.fvm_model.nx
-        return np.concatenate([U[0, 1:-1], U[1, 1:-1]])
+    def _get_model_state(self, model):
+        """Gets the augmented state vector from the FVM model."""
+        nx = model.nx
+        A = model.U[0, 1:-1]
+        Q = model.U[1, 1:-1]
+        n_param = model.manning_n
+        return np.concatenate([A, Q, [n_param]])

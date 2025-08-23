@@ -95,24 +95,30 @@ class Visualizer:
         logger.info(f"Water level plot saved to {filename}")
         plt.close()
 
-    def plot_parameter_convergence(self, param_name):
+    def plot_parameter_convergence(self, est_param_name, true_param_name=None, title_param_name=None):
         """
-        Plots the convergence of a specific identified parameter.
+        Plots the convergence of a specific identified parameter, with an optional true value line.
         """
-        if not self._prepare_dataframe() or param_name not in self.df.columns:
-            logger.warning(f"Parameter '{param_name}' not in logged data. Cannot plot convergence.")
+        if not self._prepare_dataframe() or est_param_name not in self.df.columns:
+            logger.warning(f"Parameter '{est_param_name}' not in logged data. Cannot plot convergence.")
             return
 
-        logger.info(f"Plotting convergence of {param_name}...")
+        title = title_param_name if title_param_name else est_param_name
+        logger.info(f"Plotting convergence of {title}...")
         plt.figure(figsize=(12, 6))
-        plt.plot(self.df.index, self.df[param_name], label=f'Identified {param_name}')
-        plt.title(f"Convergence of Parameter: {param_name}")
+
+        plt.plot(self.df.index, self.df[est_param_name], label=f'Estimated {title}')
+
+        if true_param_name and true_param_name in self.df.columns:
+            plt.plot(self.df.index, self.df[true_param_name], label=f'True {title}', linestyle='--', color='k')
+
+        plt.title(f"Convergence of Parameter: {title}")
         plt.xlabel("Time (s)")
         plt.ylabel("Parameter Value")
         plt.legend()
         plt.grid(True)
 
-        filename = f"parameter_convergence_{param_name}.png"
+        filename = f"parameter_convergence_{est_param_name}.png"
         plt.savefig(filename)
         logger.info(f"Parameter convergence plot saved to {filename}")
         plt.close()

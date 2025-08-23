@@ -106,15 +106,14 @@ def main():
     # run_combined_scenario()
     # run_dam_break_scenario()
     # run_noise_fault_scenario()
-    # run_ekf_validation_scenario()
+    # run_parameter_estimation_scenario()
 
-def run_ekf_validation_scenario():
+def run_parameter_estimation_scenario():
     """
-    Defines and runs a scenario to validate the EKF's performance.
-    It creates a discrepancy between the real world and the twin's model
-    and verifies if the EKF can correct the state estimate.
+    Defines and runs a scenario to validate the EKF's ability to estimate
+    a physical parameter (Manning's n) online.
     """
-    logger.info("--- Running EKF Validation Scenario ---")
+    logger.info("--- Running Parameter Estimation (EKF) Scenario ---")
     config.SIMULATION_DURATION = 1800 # Shorter run for this test
     sim_manager = SimulationManager(config)
 
