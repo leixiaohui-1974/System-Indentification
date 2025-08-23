@@ -27,29 +27,8 @@ class SimulationManager:
     def __init__(self, config):
         self.config = config
 
-        logger.info("Initializing components...")
-        self.gate_model = GateModel(config)
-        self.model_a = FVMChannelModel(config)
-        self.model_b = IDChannelModel(config)
-
-        self.sensor_sim = SensorSimulator(config)
-        self.preprocessor = DataPreprocessor()
-        self.identifier = SystemIdentifier(config)
-        self.fault_detector = FaultDetector(config, self.gate_model)
-
-        self.visualizer = Visualizer()
-
-        # Initial state
-        self.gate_opening = config.GATE_INITIAL_OPENING
-        self.identified_params = self.identifier.get_identified_params()
-
-        print("Simulation Manager initialized successfully.")
-
-    def __init__(self, config):
-        self.config = config
-
         # 1. Initialize all components
-        print("Initializing components...")
+        logger.info("Initializing components...")
         self.gate_model = GateModel(config)
         self.model_a = FVMChannelModel(config) # High-fidelity "real world"
         self.model_b = IDChannelModel(config)  # Simplified "digital twin"
@@ -61,6 +40,7 @@ class SimulationManager:
 
         self.visualizer = Visualizer()
 
+        # 2. Set initial state
         self.gate_opening = config.GATE_INITIAL_OPENING
         self.identified_params = self.identifier.get_identified_params()
         self.perturbations = []
@@ -89,38 +69,65 @@ class SimulationManager:
 
     def run_simulation(self):
         """
-        Executes the main simulation loop.
+        Executes the main simulation loop using an adaptive timestep.
         """
         logger.info(f"Starting simulation for {self.config.SIMULATION_DURATION} seconds...")
 
-        num_steps = int(self.config.SIMULATION_DURATION / self.config.TIMESTEP)
+        timestamp = 0.0
         p_idx = 0
+        log_time_tracker = -100 # To ensure the first log prints at T=0
 
-        for i in range(num_steps):
-            timestamp = i * self.config.TIMESTEP
+        # Initialize the downstream boundary condition (water level at the gate)
+        h_true_gate_upstream = self.config.INITIAL_WATER_DEPTH
 
+        while timestamp < self.config.SIMULATION_DURATION:
+            # 1. Get adaptive timestep from the FVM model
+            dt = self.model_a._calculate_cfl_dt()
+
+            # 2. Check for and apply scheduled perturbations
             if p_idx < len(self.perturbations) and timestamp >= self.perturbations[p_idx]['time']:
                 event = self.perturbations[p_idx]
                 self._apply_perturbation(event['type'], event['params'])
                 p_idx += 1
 
-            downstream_bc = {'type': 'depth', 'value': self.config.INITIAL_WATER_DEPTH}
-            self.model_a.step(self.config.TIMESTEP, None, downstream_bc)
+            # 3. Define boundary conditions and step the "Real World" Model (Model A)
+            upstream_bc = {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}
+            # The downstream BC is the water level at the gate from the *previous* timestep
+            downstream_bc = {'type': 'fixed_depth', 'value': h_true_gate_upstream}
+            self.model_a.step(dt, upstream_bc, downstream_bc)
 
-            h_true_downstream = self.model_a.get_state()['h'][0]
-            q_true_downstream = self.model_a.get_state()['Q'][0]
-            h_true_upstream = self.config.INITIAL_WATER_DEPTH * 1.2
+            # 4. Extract True Values from Model A for the sensors
+            # The gate is at the downstream end of the channel, so we use the last cell's state.
+            model_a_state = self.model_a.get_state()
+            h_true_gate_upstream = model_a_state['h'][-1]
+
+            # The "downstream" sensor is located some distance after the gate.
+            # In this simplified setup, we assume a constant tailwater depth.
+            h_true_gate_downstream = self.config.INITIAL_WATER_DEPTH
+
+            # The flow through the gate is calculated by the gate model
+            q_true_gate = self.gate_model.calculate_flow(
+                h_up=h_true_gate_upstream,
+                h_down=h_true_gate_downstream,
+                opening=self.gate_opening,
+                Cq=self.config.GATE_DISCHARGE_COEFFICIENT_TRUE
+            )
 
             true_values = {
-                'h_gate_up': h_true_upstream, 'h_gate_down': h_true_downstream, 'q_gate_down': q_true_downstream
+                'h_gate_up': h_true_gate_upstream,
+                'h_gate_down': h_true_gate_downstream,
+                'q_gate_down': q_true_gate
             }
 
+            # 5. Simulate and Process Sensor Data
             raw_readings = self.sensor_sim.get_readings(true_values)
             cleaned_readings = self.preprocessor.filter(raw_readings)
 
+            # 6. Diagnose Faults
             gate_cq_est = self.config.INITIAL_GATE_COEFF_GUESS
             reliable_data, status_msg = self.fault_detector.diagnose(cleaned_readings, self.gate_opening, gate_cq_est)
 
+            # 7. System Identification (if data is reliable)
             if 'h_gate_down' in reliable_data and 'q_gate_down' in reliable_data:
                 y_k = reliable_data['h_gate_down']
                 if len(self.model_b.input_buffer) > self.model_b.delay_steps:
@@ -128,32 +135,50 @@ class SimulationManager:
                     phi_k = np.array([self.model_b.h_down_prev, delayed_input])
                     self.identifier.run_rls_step(y_k, phi_k)
 
+            # 8. Update Digital Twin (Model B)
             self.identified_params = self.identifier.get_identified_params()
             self.model_b.update_params(self.identified_params['model_b_params'])
 
             q_input_for_b = self.gate_model.calculate_flow(
-                h_true_upstream, h_true_downstream, self.gate_opening, self.config.GATE_DISCHARGE_COEFFICIENT_TRUE
+                h_up=h_true_gate_upstream,
+                h_down=h_true_gate_downstream,
+                opening=self.gate_opening,
+                Cq=self.config.INITIAL_GATE_COEFF_GUESS # Using initial guess as it's not identified online yet
             )
-            model_b_prediction = self.model_b.step(self.config.TIMESTEP, q_input_for_b)
+            model_b_prediction = self.model_b.step(dt, q_input_for_b)
 
-            log_state = {
-                'h_true': h_true_downstream,
-                'h_twin': model_b_prediction,
-                'param_a1': self.identified_params['model_b_params']['a1'],
-                'param_b1': self.identified_params['model_b_params']['b1'],
-                'status': status_msg
-            }
+            # 9. Log and Print Status
+            # 9. Log and Print Status
+            if self.visualizer.plot_profiles:
+                log_state = {'h_profile': self.model_a.get_state()['h']}
+            else:
+                log_state = {
+                    'h_true': h_true_downstream,
+                    'h_twin': model_b_prediction,
+                    'param_a1': self.identified_params['model_b_params']['a1'],
+                    'param_b1': self.identified_params['model_b_params']['b1'],
+                    'status': status_msg
+                }
             self.visualizer.log_state(timestamp, log_state)
 
-            if i % 100 == 0:
+            if timestamp - log_time_tracker >= 20: # Log more frequently for dam break
+                current_h_profile = self.model_a.get_state()['h']
                 log_msg = (
-                    f"T={timestamp:5.0f}s | {status_msg} | "
-                    f"h_true={h_true_downstream:.3f}, h_twin={model_b_prediction:.3f} | "
-                    f"a1={log_state['param_a1']:.3f}, b1={log_state['param_b1']:.3f}"
+                    f"T={timestamp:5.1f}s | dt={dt:.3f}s | "
+                    f"h_upstream={current_h_profile[0]:.3f}, h_gate_up={current_h_profile[-1]:.3f}"
                 )
                 logger.info(log_msg)
+                log_time_tracker = timestamp
+
+            # 10. Advance time
+            timestamp += dt
 
         logger.info("Simulation finished.")
-        self.visualizer.plot_water_levels()
-        self.visualizer.plot_parameter_convergence('param_a1')
-        self.visualizer.plot_parameter_convergence('param_b1')
+
+        # 11. Visualize Results
+        if self.visualizer.plot_profiles:
+            self.visualizer.plot_water_profiles()
+        else:
+            self.visualizer.plot_water_levels()
+            self.visualizer.plot_parameter_convergence('param_a1')
+            self.visualizer.plot_parameter_convergence('param_b1')

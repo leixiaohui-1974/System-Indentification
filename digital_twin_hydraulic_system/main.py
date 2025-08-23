@@ -4,6 +4,7 @@ Main entry point for the hydraulic digital twin simulation.
 """
 
 import logging
+import numpy as np
 from . import config
 from .simulation_manager import SimulationManager
 from .logging_config import setup_logging
@@ -80,7 +81,34 @@ def main():
     # Run the desired scenario
     # run_sensor_fault_scenario()
     # run_roughness_change_scenario()
-    run_combined_scenario()
+    # run_combined_scenario()
+    run_dam_break_scenario()
+
+def run_dam_break_scenario():
+    """
+    Defines and runs a dam-break scenario to validate the FVM solver.
+    """
+    logger.info("--- Running Dam-Break Validation Scenario ---")
+
+    # Use a shorter duration for this specific test
+    config.SIMULATION_DURATION = 200
+    sim_manager = SimulationManager(config)
+
+    # Create the initial condition: a step in water level
+    nx = config.NUM_CELLS
+    h_init = np.full(nx, 1.5)
+    h_init[:nx // 2] = 3.0
+    q_init = np.full(nx, 0.0)
+
+    # Set the custom initial condition in the FVM model
+    sim_manager.model_a.set_initial_conditions(h_init, q_init)
+
+    # We need a new kind of visualization for this
+    sim_manager.visualizer.plot_profiles = True
+
+    sim_manager.run_simulation()
+    logger.info("--- Dam-break scenario complete. ---")
+
 
 if __name__ == "__main__":
     main()

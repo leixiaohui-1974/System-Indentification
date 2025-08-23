@@ -10,12 +10,16 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
 import logging
+import numpy as np
+from . import config
 
 logger = logging.getLogger(__name__)
 
 class Visualizer:
     def __init__(self):
         self.results_log = []
+        self.profile_log = []
+        self.plot_profiles = False # Flag for dam-break style plotting
         self.df = None
         logger.debug("Visualizer initialized.")
 
@@ -24,16 +28,50 @@ class Visualizer:
         Logs the state of the system at a given timestamp.
         'state' should be a dictionary containing all relevant data.
         """
-        self.results_log.append({'t': timestamp, **state})
+        if self.plot_profiles:
+            # For profile plots, we store the entire array at intervals
+            if not self.profile_log or timestamp - self.profile_log[-1]['t'] >= 25:
+                self.profile_log.append({'t': timestamp, 'h': state['h_profile']})
+        else:
+            # For regular time-series plots
+            self.results_log.append({'t': timestamp, **state})
+
 
     def _prepare_dataframe(self):
         """Converts the log list to a pandas DataFrame for easy plotting."""
         if not self.results_log:
-            logger.warning("No data logged to visualize.")
+            logger.warning("No time-series data logged to visualize.")
             return False
         if self.df is None or len(self.df) != len(self.results_log):
             self.df = pd.DataFrame(self.results_log).set_index('t')
         return True
+
+    def plot_water_profiles(self):
+        """Plots the water surface profile at different timestamps."""
+        if not self.profile_log:
+            logger.warning("No profile data logged to visualize.")
+            return
+
+        logger.info("Plotting water surface profiles for dam-break scenario...")
+        plt.figure(figsize=(12, 6))
+
+        for record in self.profile_log:
+            t = record['t']
+            h = record['h']
+            x = np.linspace(0, config.CHANNEL_LENGTH, len(h))
+            plt.plot(x, h, label=f't = {t:.1f} s')
+
+        plt.title("Dam-Break Scenario: Water Surface Profile")
+        plt.xlabel("Channel Distance (m)")
+        plt.ylabel("Water Depth (m)")
+        plt.legend()
+        plt.grid(True)
+
+        filename = "dam_break_profiles.png"
+        plt.savefig(filename)
+        logger.info(f"Dam-break profile plot saved to {filename}")
+        plt.close()
+
 
     def plot_water_levels(self):
         """

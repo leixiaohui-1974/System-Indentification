@@ -1,0 +1,327 @@
+2025-08-23 06:42:22,763 - root - INFO - Logging configured successfully.
+2025-08-23 06:42:22,764 - __main__ - INFO - =================================
+2025-08-23 06:42:22,764 - __main__ - INFO - Hydraulic Digital Twin Simulation
+2025-08-23 06:42:22,764 - __main__ - INFO - =================================
+2025-08-23 06:42:22,764 - __main__ - INFO - --- Running Dam-Break Validation Scenario ---
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.simulation_manager - INFO - Initializing components...
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.models.fvm_channel_model - DEBUG - FVM Channel Model (Model A) initialized with ghost cells.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Integral-Delay Channel Model (Model B) initialized.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.sensor_simulator - DEBUG - Sensor Simulator initialized.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.diagnostics.data_preprocessor - DEBUG - Data Preprocessor initialized with moving_average filter (window=5).
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.diagnostics.system_identifier - DEBUG - System Identifier initialized.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.diagnostics.fault_detector - DEBUG - Fault Detector initialized.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.visualization - DEBUG - Visualizer initialized.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation Manager initialized successfully.
+2025-08-23 06:42:22,764 - digital_twin_hydraulic_system.models.fvm_channel_model - INFO - Custom initial conditions have been set for FVM model.
+2025-08-23 06:42:22,765 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting simulation for 200 seconds...
+2025-08-23 06:42:22,765 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.002, b1=0.100, delay=5
+2025-08-23 06:42:22,766 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  0.0s | dt=1.000s | h_upstream=3.009, h_gate_up=1.522
+2025-08-23 06:42:22,766 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,767 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,768 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,768 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=0.999, b1=0.100, delay=5
+2025-08-23 06:42:22,769 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=0.999, b1=0.100, delay=5
+2025-08-23 06:42:22,769 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=0.999, b1=0.100, delay=5
+2025-08-23 06:42:22,770 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,771 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,771 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,772 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,772 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,773 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,774 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,774 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,775 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,776 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,776 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,777 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,777 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,778 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,778 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 20.0s | dt=1.000s | h_upstream=3.147, h_gate_up=1.522
+2025-08-23 06:42:22,779 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,780 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,780 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,781 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,781 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,782 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,783 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,783 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,784 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,785 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,785 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,786 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,787 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,787 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,788 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,789 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,789 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,790 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,791 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,791 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,791 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 40.0s | dt=1.000s | h_upstream=3.219, h_gate_up=1.522
+2025-08-23 06:42:22,792 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,793 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,793 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,794 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,794 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,795 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,796 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,796 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,797 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,798 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,798 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,799 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,800 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,800 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,801 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,801 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,802 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,803 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,803 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,804 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,804 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 60.0s | dt=1.000s | h_upstream=3.253, h_gate_up=1.522
+2025-08-23 06:42:22,805 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,806 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,806 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,807 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,808 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,808 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,809 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,810 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,810 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,811 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,812 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,812 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,813 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,813 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,814 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,815 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,815 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,816 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,817 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,817 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,817 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 80.0s | dt=1.000s | h_upstream=3.268, h_gate_up=1.522
+2025-08-23 06:42:22,818 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,819 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,819 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,820 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,821 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,821 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,822 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,822 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,823 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,824 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,824 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,825 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,826 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,826 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,827 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,828 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,828 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,829 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,830 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,830 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,830 - digital_twin_hydraulic_system.simulation_manager - INFO - T=100.0s | dt=1.000s | h_upstream=3.273, h_gate_up=1.522
+2025-08-23 06:42:22,831 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,832 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,832 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,833 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,833 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,834 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,839 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,839 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,840 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,841 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,841 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,842 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,842 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,844 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,845 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,846 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,846 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,847 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,848 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,848 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,848 - digital_twin_hydraulic_system.simulation_manager - INFO - T=120.0s | dt=1.000s | h_upstream=3.272, h_gate_up=1.522
+2025-08-23 06:42:22,849 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,849 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,850 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,851 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,851 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,852 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,853 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,853 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,854 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,855 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,855 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,856 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,856 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,857 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,858 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,858 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,859 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,860 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,860 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,861 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,861 - digital_twin_hydraulic_system.simulation_manager - INFO - T=140.0s | dt=1.000s | h_upstream=3.269, h_gate_up=1.522
+2025-08-23 06:42:22,862 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,862 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,863 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,863 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,864 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,865 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,865 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,866 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,867 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,867 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,868 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,869 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,869 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,870 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,870 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,871 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,872 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,872 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,873 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,874 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,874 - digital_twin_hydraulic_system.simulation_manager - INFO - T=160.0s | dt=1.000s | h_upstream=3.265, h_gate_up=1.522
+2025-08-23 06:42:22,874 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,875 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,876 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,876 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,877 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,878 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,878 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,879 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,880 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,880 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,881 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,881 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,882 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,883 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,883 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,884 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,885 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,885 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,886 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,886 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,886 - digital_twin_hydraulic_system.simulation_manager - INFO - T=180.0s | dt=1.000s | h_upstream=3.260, h_gate_up=1.522
+2025-08-23 06:42:22,887 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,888 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,888 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,889 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,890 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,890 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,891 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,891 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,892 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,893 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,893 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,894 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,895 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,895 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,896 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,896 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,897 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,898 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,898 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Model B parameters updated: a1=1.000, b1=0.100, delay=5
+2025-08-23 06:42:22,898 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation finished.
+2025-08-23 06:42:22,898 - digital_twin_hydraulic_system.visualization - INFO - Plotting water surface profiles for dam-break scenario...
+2025-08-23 06:42:22,901 - matplotlib.pyplot - DEBUG - Loaded backend Agg version v2.2.
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2025-08-23 06:42:22,906 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,907 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,908 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,909 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2025-08-23 06:42:22,975 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2025-08-23 06:42:22,975 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,976 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,977 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 06:42:22,978 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 06:42:22,979 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,979 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 06:42:22,979 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 06:42:22,979 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 06:42:22,979 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2025-08-23 06:42:23,204 - digital_twin_hydraulic_system.visualization - INFO - Dam-break profile plot saved to dam_break_profiles.png
+2025-08-23 06:42:23,204 - __main__ - INFO - --- Dam-break scenario complete. ---
