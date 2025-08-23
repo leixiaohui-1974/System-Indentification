@@ -122,3 +122,15 @@ class Visualizer:
         plt.savefig(filename)
         logger.info(f"Parameter convergence plot saved to {filename}")
         plt.close()
+
+    def save_log_to_csv(self, filename="offline_data.csv", append=False):
+        """Saves the logged time-series data to a CSV file."""
+        if not self._prepare_dataframe():
+            logger.error("Could not save log to CSV, no data available.")
+            return
+
+        mode = 'a' if append else 'w'
+        header = False if append else True
+
+        self.df.to_csv(filename, mode=mode, header=header)
+        logger.info(f"Simulation log saved to {filename} (mode: {mode})")

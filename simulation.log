@@ -1,188 +1,486 @@
-2025-08-23 09:41:01,460 - root - INFO - Logging configured successfully.
-2025-08-23 09:41:01,460 - __main__ - INFO - =================================
-2025-08-23 09:41:01,460 - __main__ - INFO - Hydraulic Digital Twin Simulation
-2025-08-23 09:41:01,460 - __main__ - INFO - =================================
-2025-08-23 09:41:01,460 - __main__ - INFO - --- Running Drift Fault Scenario ---
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.simulation_manager - INFO - Initializing components...
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.models.fvm_channel_model - DEBUG - FVM Channel Model (Model A) initialized with ghost cells.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.models.fvm_channel_model - DEBUG - FVM Channel Model (Model A) initialized with ghost cells.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Integral-Delay Channel Model (Model B) initialized.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.sensor_simulator - DEBUG - Sensor Simulator initialized.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.diagnostics.data_preprocessor - DEBUG - Data Preprocessor initialized with moving_average filter (window=5).
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.diagnostics.system_identifier - DEBUG - System Identifier initialized.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.diagnostics.fault_detector - DEBUG - Fault Detector initialized.
-2025-08-23 09:41:01,461 - digital_twin_hydraulic_system.visualization - DEBUG - Visualizer initialized.
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.diagnostics.system_identifier - INFO - EKF initialized with augmented state size n=101
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation Manager initialized successfully with EKF.
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.simulation_manager - INFO - Scheduled perturbation 'sensor_fault' at t=500s.
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 3000 seconds...
-2025-08-23 09:41:01,462 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
-2025-08-23 09:41:01,497 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.1861
-2025-08-23 09:41:03,142 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.500, h_twin_est=2.500 | n_est=0.6447
-2025-08-23 09:41:04,791 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.6687
-2025-08-23 09:41:06,810 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.6868
-2025-08-23 09:41:08,448 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.500, h_twin_est=2.500 | n_est=0.7038
-2025-08-23 09:41:10,115 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.7197
-2025-08-23 09:41:10,960 - digital_twin_hydraulic_system.diagnostics.fault_detector - WARNING - Fault detected in 'q_gate_down'! (Type: Increased Noise (StdDev: 1.689 > 0.030)). Isolating sensor.
-2025-08-23 09:41:11,751 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7275
-2025-08-23 09:41:13,414 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.500, h_twin_est=2.499 | n_est=0.7269
-2025-08-23 09:41:15,105 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.500, h_twin_est=2.500 | n_est=0.7262
-2025-08-23 09:41:16,772 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.500, h_twin_est=2.499 | n_est=0.7255
-2025-08-23 09:41:18,856 - digital_twin_hydraulic_system.simulation_manager - WARNING - --- Applying Perturbation: sensor_fault ---
-2025-08-23 09:41:18,856 - digital_twin_hydraulic_system.sensor_simulator - INFO - Fault 'drift' induced on sensor 'h_gate_up' with value 0.002.
-2025-08-23 09:41:18,890 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.500, h_twin_est=2.499 | n_est=0.7247
-2025-08-23 09:41:20,532 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.500, h_twin_est=2.561 | n_est=0.7243
-2025-08-23 09:41:22,173 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.500, h_twin_est=2.649 | n_est=0.7239
-2025-08-23 09:41:23,869 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.500, h_twin_est=2.743 | n_est=0.7258
-2025-08-23 09:41:25,567 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.501, h_twin_est=2.837 | n_est=0.7275
-2025-08-23 09:41:27,234 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.502, h_twin_est=2.933 | n_est=0.7297
-2025-08-23 09:41:28,920 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.504, h_twin_est=3.030 | n_est=0.7330
-2025-08-23 09:41:30,626 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.507, h_twin_est=3.128 | n_est=0.7374
-2025-08-23 09:41:32,310 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.511, h_twin_est=3.228 | n_est=0.7432
-2025-08-23 09:41:34,010 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.516, h_twin_est=3.328 | n_est=0.7503
-2025-08-23 09:41:35,704 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1001.0s | h_true=2.521, h_twin_est=3.429 | n_est=0.7586
-2025-08-23 09:41:37,402 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1051.0s | h_true=2.525, h_twin_est=3.529 | n_est=0.7682
-2025-08-23 09:41:38,793 - digital_twin_hydraulic_system.diagnostics.fault_detector - WARNING - Fault detected in 'h_gate_up'! (Type: Model Deviation (Smoothed Residual: 0.100)). Isolating sensor.
-2025-08-23 09:41:39,097 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1101.0s | h_true=2.530, h_twin_est=3.591 | n_est=0.7772
-2025-08-23 09:41:40,778 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1151.0s | h_true=2.534, h_twin_est=3.525 | n_est=0.7792
-2025-08-23 09:41:42,462 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1201.0s | h_true=2.537, h_twin_est=3.480 | n_est=0.7806
-2025-08-23 09:41:44,138 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1251.0s | h_true=2.541, h_twin_est=3.443 | n_est=0.7817
-2025-08-23 09:41:45,804 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1301.0s | h_true=2.544, h_twin_est=3.411 | n_est=0.7826
-2025-08-23 09:41:47,535 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1351.0s | h_true=2.547, h_twin_est=3.383 | n_est=0.7834
-2025-08-23 09:41:49,209 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1401.0s | h_true=2.551, h_twin_est=3.357 | n_est=0.7840
-2025-08-23 09:41:50,888 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1451.0s | h_true=2.554, h_twin_est=3.333 | n_est=0.7847
-2025-08-23 09:41:52,571 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1501.0s | h_true=2.557, h_twin_est=3.310 | n_est=0.7852
-2025-08-23 09:41:54,252 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1551.0s | h_true=2.560, h_twin_est=3.289 | n_est=0.7854
-2025-08-23 09:41:55,935 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1601.0s | h_true=2.563, h_twin_est=3.269 | n_est=0.7853
-2025-08-23 09:41:57,618 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1651.0s | h_true=2.567, h_twin_est=3.251 | n_est=0.7851
-2025-08-23 09:41:59,301 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1701.0s | h_true=2.570, h_twin_est=3.234 | n_est=0.7847
-2025-08-23 09:42:00,981 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1751.0s | h_true=2.573, h_twin_est=3.218 | n_est=0.7843
-2025-08-23 09:42:02,654 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1801.0s | h_true=2.576, h_twin_est=3.203 | n_est=0.7839
-2025-08-23 09:42:04,314 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1851.0s | h_true=2.579, h_twin_est=3.189 | n_est=0.7833
-2025-08-23 09:42:05,960 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1901.0s | h_true=2.582, h_twin_est=3.176 | n_est=0.7828
-2025-08-23 09:42:07,702 - digital_twin_hydraulic_system.simulation_manager - INFO - T=1951.0s | h_true=2.585, h_twin_est=3.164 | n_est=0.7822
-2025-08-23 09:42:09,542 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2001.0s | h_true=2.588, h_twin_est=3.152 | n_est=0.7816
-2025-08-23 09:42:11,379 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2051.0s | h_true=2.591, h_twin_est=3.141 | n_est=0.7810
-2025-08-23 09:42:13,242 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2101.0s | h_true=2.594, h_twin_est=3.131 | n_est=0.7804
-2025-08-23 09:42:15,095 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2151.0s | h_true=2.596, h_twin_est=3.121 | n_est=0.7797
-2025-08-23 09:42:16,890 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2201.0s | h_true=2.599, h_twin_est=3.112 | n_est=0.7791
-2025-08-23 09:42:19,548 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2251.0s | h_true=2.602, h_twin_est=3.103 | n_est=0.7784
-2025-08-23 09:42:22,688 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2301.0s | h_true=2.605, h_twin_est=3.094 | n_est=0.7777
-2025-08-23 09:42:26,081 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2351.0s | h_true=2.608, h_twin_est=3.086 | n_est=0.7770
-2025-08-23 09:42:27,985 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2401.0s | h_true=2.610, h_twin_est=3.078 | n_est=0.7763
-2025-08-23 09:42:29,663 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2451.0s | h_true=2.613, h_twin_est=3.071 | n_est=0.7755
-2025-08-23 09:42:31,310 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2501.0s | h_true=2.616, h_twin_est=3.064 | n_est=0.7748
-2025-08-23 09:42:32,934 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2551.0s | h_true=2.618, h_twin_est=3.057 | n_est=0.7741
-2025-08-23 09:42:34,533 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2601.0s | h_true=2.621, h_twin_est=3.051 | n_est=0.7733
-2025-08-23 09:42:36,129 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2651.0s | h_true=2.624, h_twin_est=3.045 | n_est=0.7725
-2025-08-23 09:42:37,725 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2701.0s | h_true=2.626, h_twin_est=3.040 | n_est=0.7718
-2025-08-23 09:42:39,317 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2751.0s | h_true=2.629, h_twin_est=3.034 | n_est=0.7710
-2025-08-23 09:42:40,907 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2801.0s | h_true=2.631, h_twin_est=3.030 | n_est=0.7702
-2025-08-23 09:42:42,501 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2851.0s | h_true=2.634, h_twin_est=3.025 | n_est=0.7694
-2025-08-23 09:42:44,086 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2901.0s | h_true=2.636, h_twin_est=3.021 | n_est=0.7686
-2025-08-23 09:42:45,717 - digital_twin_hydraulic_system.simulation_manager - INFO - T=2951.0s | h_true=2.639, h_twin_est=3.017 | n_est=0.7678
-2025-08-23 09:42:47,347 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
-2025-08-23 09:42:47,347 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
-2025-08-23 09:42:47,355 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
-2025-08-23 09:42:47,358 - matplotlib.pyplot - DEBUG - Loaded backend Agg version v2.2.
-2025-08-23 09:42:47,363 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,364 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,365 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,366 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,367 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
-2025-08-23 09:42:47,431 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
-2025-08-23 09:42:47,431 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,431 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,432 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
-2025-08-23 09:42:47,433 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
-2025-08-23 09:42:47,434 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
-2025-08-23 09:42:47,435 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
-2025-08-23 09:42:47,435 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
-2025-08-23 09:42:47,601 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
-2025-08-23 09:42:47,601 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
-2025-08-23 09:42:47,840 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
-2025-08-23 09:42:47,840 - __main__ - INFO - --- Drift fault scenario complete. ---
+2025-08-23 11:05:17,698 - root - INFO - Logging configured successfully.
+2025-08-23 11:05:17,698 - __main__ - INFO - =================================
+2025-08-23 11:05:17,698 - __main__ - INFO - Hydraulic Digital Twin Simulation
+2025-08-23 11:05:17,699 - __main__ - INFO - =================================
+2025-08-23 11:05:17,699 - __main__ - INFO - --- Running Data Generation Scenario ---
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.simulation_manager - INFO - Initializing components...
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.models.fvm_channel_model - DEBUG - FVM Channel Model (Model A) initialized with ghost cells.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.models.fvm_channel_model - DEBUG - FVM Channel Model (Model A) initialized with ghost cells.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.models.id_channel_model - DEBUG - Integral-Delay Channel Model (Model B) initialized.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.sensor_simulator - DEBUG - Sensor Simulator initialized.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.diagnostics.data_preprocessor - DEBUG - Data Preprocessor initialized with moving_average filter (window=5).
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.diagnostics.system_identifier - DEBUG - System Identifier initialized.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.diagnostics.fault_detector - DEBUG - Fault Detector initialized.
+2025-08-23 11:05:17,699 - digital_twin_hydraulic_system.visualization - DEBUG - Visualizer initialized.
+2025-08-23 11:05:17,703 - digital_twin_hydraulic_system.diagnostics.system_identifier - INFO - EKF initialized with augmented state size n=101
+2025-08-23 11:05:17,703 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:05:17,703 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation Manager initialized successfully with EKF.
+2025-08-23 11:05:17,704 - __main__ - WARNING - --- Setting new operating point: Inflow=30.00, Gate=0.50 ---
+2025-08-23 11:05:17,704 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:05:17,704 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:05:17,704 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:05:17,704 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:17,738 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.500, h_twin_est=2.497 | n_est=0.1862
+2025-08-23 11:05:17,738 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:17,773 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:17,809 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:17,844 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:19,577 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.6561
+2025-08-23 11:05:21,424 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.500, h_twin_est=2.500 | n_est=0.6788
+2025-08-23 11:05:23,237 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.6959
+2025-08-23 11:05:25,011 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7122
+2025-08-23 11:05:26,817 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7277
+2025-08-23 11:05:28,568 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.500, h_twin_est=2.500 | n_est=0.7427
+2025-08-23 11:05:30,321 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7571
+2025-08-23 11:05:32,135 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.7707
+2025-08-23 11:05:34,025 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7842
+2025-08-23 11:05:35,860 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.7970
+2025-08-23 11:05:37,734 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.8092
+2025-08-23 11:05:39,554 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.8213
+2025-08-23 11:05:41,391 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.500, h_twin_est=2.501 | n_est=0.8329
+2025-08-23 11:05:43,211 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.500, h_twin_est=2.502 | n_est=0.8442
+2025-08-23 11:05:45,052 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.499, h_twin_est=2.502 | n_est=0.8551
+2025-08-23 11:05:46,883 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.498, h_twin_est=2.499 | n_est=0.8662
+2025-08-23 11:05:48,700 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.496, h_twin_est=2.498 | n_est=0.8774
+2025-08-23 11:05:50,507 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.493, h_twin_est=2.496 | n_est=0.8887
+2025-08-23 11:05:52,341 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.490, h_twin_est=2.493 | n_est=0.9001
+2025-08-23 11:05:54,069 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:05:54,069 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:05:54,073 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:05:54,076 - matplotlib.pyplot - DEBUG - Loaded backend Agg version v2.2.
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2025-08-23 11:05:54,080 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,081 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,082 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,083 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2025-08-23 11:05:54,146 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymBol.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 1.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralItalic.ttf', name='STIXGeneral', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymReg.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizThreeSymBol.ttf', name='STIXSizeThreeSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymReg.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,147 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizOneSymBol.ttf', name='STIXSizeOneSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmb10.ttf', name='cmb10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizTwoSymReg.ttf', name='STIXSizeTwoSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmex10.ttf', name='cmex10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-BoldOblique.ttf', name='DejaVu Sans', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 1.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmmi10.ttf', name='cmmi10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBolIta.ttf', name='STIXGeneral', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymReg.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerifDisplay.ttf', name='DejaVu Serif Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-BoldItalic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBol.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansDisplay.ttf', name='DejaVu Sans Display', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneralBol.ttf', name='STIXGeneral', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,148 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmss10.ttf', name='cmss10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmtt10.ttf', name='cmtt10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFourSymBol.ttf', name='STIXSizeFourSym', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXSizFiveSymReg.ttf', name='STIXSizeFiveSym', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif-Italic.ttf', name='DejaVu Serif', style='italic', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmsy10.ttf', name='cmsy10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/cmr10.ttf', name='cmr10', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUni.ttf', name='STIXNonUnicode', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXGeneral.ttf', name='STIXGeneral', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/STIXNonUniBolIta.ttf', name='STIXNonUnicode', style='italic', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=400, stretch='normal', size='scalable')) = 11.05
+2025-08-23 11:05:54,149 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 10.05
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 0.33499999999999996
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf', name='DejaVu Serif', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', name='DejaVu Sans', style='normal', variant='normal', weight=400, stretch='normal', size='scalable')) = 0.05
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf', name='DejaVu Sans Mono', style='oblique', variant='normal', weight=700, stretch='normal', size='scalable')) = 11.335
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: score(FontEntry(fname='/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', name='DejaVu Sans Mono', style='normal', variant='normal', weight=700, stretch='normal', size='scalable')) = 10.335
+2025-08-23 11:05:54,150 - matplotlib.font_manager - DEBUG - findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/home/jules/.pyenv/versions/3.12.11/lib/python3.12/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 0.050000.
+2025-08-23 11:05:54,316 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:05:54,316 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:05:54,508 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:05:54,539 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: w)
+2025-08-23 11:05:54,539 - __main__ - WARNING - --- Setting new operating point: Inflow=30.00, Gate=1.00 ---
+2025-08-23 11:05:54,539 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:05:54,540 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:05:54,540 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:05:54,540 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:54,577 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.487, h_twin_est=2.489 | n_est=0.9118
+2025-08-23 11:05:54,577 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:54,612 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:54,649 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:54,689 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:05:56,333 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.483, h_twin_est=2.486 | n_est=0.9234
+2025-08-23 11:05:58,056 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.480, h_twin_est=2.483 | n_est=0.9351
+2025-08-23 11:05:59,827 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.477, h_twin_est=2.480 | n_est=0.9465
+2025-08-23 11:06:01,615 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.474, h_twin_est=2.477 | n_est=0.9578
+2025-08-23 11:06:03,392 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.471, h_twin_est=2.476 | n_est=0.9689
+2025-08-23 11:06:05,154 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.469, h_twin_est=2.472 | n_est=0.9798
+2025-08-23 11:06:07,022 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.467, h_twin_est=2.469 | n_est=0.9906
+2025-08-23 11:06:08,842 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.464, h_twin_est=2.468 | n_est=1.0010
+2025-08-23 11:06:10,618 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.462, h_twin_est=2.464 | n_est=1.0116
+2025-08-23 11:06:12,422 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.460, h_twin_est=2.463 | n_est=1.0217
+2025-08-23 11:06:14,222 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.458, h_twin_est=2.460 | n_est=1.0316
+2025-08-23 11:06:16,039 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.455, h_twin_est=2.458 | n_est=1.0415
+2025-08-23 11:06:17,861 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.453, h_twin_est=2.457 | n_est=1.0510
+2025-08-23 11:06:19,671 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.451, h_twin_est=2.454 | n_est=1.0604
+2025-08-23 11:06:21,443 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.449, h_twin_est=2.452 | n_est=1.0697
+2025-08-23 11:06:23,242 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.447, h_twin_est=2.450 | n_est=1.0788
+2025-08-23 11:06:25,009 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.445, h_twin_est=2.448 | n_est=1.0877
+2025-08-23 11:06:26,805 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.442, h_twin_est=2.447 | n_est=1.0964
+2025-08-23 11:06:28,603 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.440, h_twin_est=2.444 | n_est=1.1052
+2025-08-23 11:06:30,306 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:06:30,306 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:06:30,306 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:06:30,497 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:06:30,497 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:06:30,655 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:06:30,673 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:06:30,673 - __main__ - WARNING - --- Setting new operating point: Inflow=30.00, Gate=1.50 ---
+2025-08-23 11:06:30,673 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:06:30,673 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:06:30,673 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:06:30,673 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:06:30,708 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.440, h_twin_est=2.442 | n_est=1.1138
+2025-08-23 11:06:30,708 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:06:30,743 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:06:30,776 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:06:30,809 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:06:32,527 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.438, h_twin_est=2.441 | n_est=1.1221
+2025-08-23 11:06:34,366 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.435, h_twin_est=2.439 | n_est=1.1303
+2025-08-23 11:06:36,201 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.433, h_twin_est=2.436 | n_est=1.1387
+2025-08-23 11:06:38,075 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.431, h_twin_est=2.434 | n_est=1.1471
+2025-08-23 11:06:39,966 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.429, h_twin_est=2.431 | n_est=1.1553
+2025-08-23 11:06:41,722 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.427, h_twin_est=2.430 | n_est=1.1632
+2025-08-23 11:06:43,457 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.425, h_twin_est=2.428 | n_est=1.1711
+2025-08-23 11:06:45,299 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.423, h_twin_est=2.427 | n_est=1.1787
+2025-08-23 11:06:47,170 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.421, h_twin_est=2.424 | n_est=1.1863
+2025-08-23 11:06:49,012 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.419, h_twin_est=2.422 | n_est=1.1940
+2025-08-23 11:06:50,924 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.417, h_twin_est=2.420 | n_est=1.2016
+2025-08-23 11:06:52,786 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.416, h_twin_est=2.418 | n_est=1.2089
+2025-08-23 11:06:54,689 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.414, h_twin_est=2.416 | n_est=1.2164
+2025-08-23 11:06:56,607 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.412, h_twin_est=2.414 | n_est=1.2236
+2025-08-23 11:06:58,467 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.410, h_twin_est=2.413 | n_est=1.2309
+2025-08-23 11:07:00,372 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.408, h_twin_est=2.410 | n_est=1.2379
+2025-08-23 11:07:02,305 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.406, h_twin_est=2.409 | n_est=1.2450
+2025-08-23 11:07:04,190 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.405, h_twin_est=2.408 | n_est=1.2518
+2025-08-23 11:07:06,026 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.403, h_twin_est=2.405 | n_est=1.2587
+2025-08-23 11:07:07,840 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:07:07,840 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:07:07,840 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:07:08,012 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:07:08,012 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:07:08,160 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:07:08,173 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:07:08,173 - __main__ - WARNING - --- Setting new operating point: Inflow=30.00, Gate=2.00 ---
+2025-08-23 11:07:08,173 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:07:08,173 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:07:08,173 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:07:08,173 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:08,209 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.403, h_twin_est=2.403 | n_est=1.2656
+2025-08-23 11:07:08,209 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:08,246 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:08,283 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:08,320 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:10,040 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.401, h_twin_est=2.403 | n_est=1.2722
+2025-08-23 11:07:11,859 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.400, h_twin_est=2.401 | n_est=1.2787
+2025-08-23 11:07:13,695 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.398, h_twin_est=2.399 | n_est=1.2852
+2025-08-23 11:07:15,432 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.396, h_twin_est=2.400 | n_est=1.2916
+2025-08-23 11:07:17,209 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.394, h_twin_est=2.397 | n_est=1.2980
+2025-08-23 11:07:19,019 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.392, h_twin_est=2.394 | n_est=1.3045
+2025-08-23 11:07:20,849 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.391, h_twin_est=2.393 | n_est=1.3108
+2025-08-23 11:07:22,642 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.389, h_twin_est=2.392 | n_est=1.3171
+2025-08-23 11:07:24,409 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.387, h_twin_est=2.391 | n_est=1.3233
+2025-08-23 11:07:26,265 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.386, h_twin_est=2.389 | n_est=1.3294
+2025-08-23 11:07:28,131 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.384, h_twin_est=2.386 | n_est=1.3356
+2025-08-23 11:07:29,996 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.382, h_twin_est=2.385 | n_est=1.3417
+2025-08-23 11:07:31,844 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.381, h_twin_est=2.383 | n_est=1.3477
+2025-08-23 11:07:33,670 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.379, h_twin_est=2.380 | n_est=1.3538
+2025-08-23 11:07:35,495 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.377, h_twin_est=2.380 | n_est=1.3598
+2025-08-23 11:07:37,313 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.376, h_twin_est=2.378 | n_est=1.3657
+2025-08-23 11:07:39,095 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.374, h_twin_est=2.375 | n_est=1.3717
+2025-08-23 11:07:40,941 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.373, h_twin_est=2.375 | n_est=1.3776
+2025-08-23 11:07:42,761 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.371, h_twin_est=2.374 | n_est=1.3834
+2025-08-23 11:07:44,528 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:07:44,528 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:07:44,528 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:07:44,749 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:07:44,750 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:07:44,905 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:07:44,918 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:07:44,918 - __main__ - WARNING - --- Setting new operating point: Inflow=30.00, Gate=2.50 ---
+2025-08-23 11:07:44,919 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:07:44,919 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:07:44,919 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:07:44,919 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:44,955 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.372, h_twin_est=2.372 | n_est=1.3892
+2025-08-23 11:07:44,955 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:44,991 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:45,028 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:45,065 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 30.0
+2025-08-23 11:07:46,834 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.371, h_twin_est=2.373 | n_est=1.3946
+2025-08-23 11:07:48,658 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.369, h_twin_est=2.371 | n_est=1.4001
+2025-08-23 11:07:50,871 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.367, h_twin_est=2.370 | n_est=1.4056
+2025-08-23 11:07:52,877 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.366, h_twin_est=2.366 | n_est=1.4113
+2025-08-23 11:07:54,804 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.364, h_twin_est=2.367 | n_est=1.4169
+2025-08-23 11:07:56,861 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.363, h_twin_est=2.366 | n_est=1.4223
+2025-08-23 11:07:58,640 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.361, h_twin_est=2.364 | n_est=1.4278
+2025-08-23 11:08:00,441 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.360, h_twin_est=2.364 | n_est=1.4331
+2025-08-23 11:08:02,282 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.358, h_twin_est=2.361 | n_est=1.4385
+2025-08-23 11:08:04,134 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.357, h_twin_est=2.359 | n_est=1.4440
+2025-08-23 11:08:05,984 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.355, h_twin_est=2.358 | n_est=1.4495
+2025-08-23 11:08:09,636 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.354, h_twin_est=2.357 | n_est=1.4548
+2025-08-23 11:08:11,395 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.352, h_twin_est=2.355 | n_est=1.4601
+2025-08-23 11:08:13,333 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.351, h_twin_est=2.353 | n_est=1.4654
+2025-08-23 11:08:15,271 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.349, h_twin_est=2.351 | n_est=1.4708
+2025-08-23 11:08:17,238 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.348, h_twin_est=2.351 | n_est=1.4761
+2025-08-23 11:08:19,177 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.347, h_twin_est=2.349 | n_est=1.4813
+2025-08-23 11:08:21,067 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.345, h_twin_est=2.348 | n_est=1.4866
+2025-08-23 11:08:22,879 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.344, h_twin_est=2.348 | n_est=1.4918
+2025-08-23 11:08:24,645 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:08:24,646 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:08:24,646 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:08:24,821 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:08:24,822 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:08:24,972 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:08:24,985 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:08:24,985 - __main__ - WARNING - --- Setting new operating point: Inflow=40.00, Gate=0.50 ---
+2025-08-23 11:08:24,985 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:08:24,985 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:08:24,985 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:08:24,985 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:08:25,019 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.346, h_twin_est=2.345 | n_est=1.4970
+2025-08-23 11:08:25,019 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:08:25,056 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:08:25,091 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:08:25,128 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:08:26,820 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.344, h_twin_est=2.347 | n_est=1.5019
+2025-08-23 11:08:28,734 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.343, h_twin_est=2.346 | n_est=1.5068
+2025-08-23 11:08:30,604 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.342, h_twin_est=2.345 | n_est=1.5117
+2025-08-23 11:08:32,414 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.340, h_twin_est=2.343 | n_est=1.5167
+2025-08-23 11:08:34,221 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.339, h_twin_est=2.342 | n_est=1.5218
+2025-08-23 11:08:36,034 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.337, h_twin_est=2.339 | n_est=1.5269
+2025-08-23 11:08:37,849 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.336, h_twin_est=2.340 | n_est=1.5319
+2025-08-23 11:08:39,664 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.335, h_twin_est=2.338 | n_est=1.5369
+2025-08-23 11:08:41,430 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.333, h_twin_est=2.336 | n_est=1.5419
+2025-08-23 11:08:43,217 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.332, h_twin_est=2.335 | n_est=1.5469
+2025-08-23 11:08:45,016 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.331, h_twin_est=2.333 | n_est=1.5519
+2025-08-23 11:08:46,831 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.329, h_twin_est=2.332 | n_est=1.5569
+2025-08-23 11:08:48,734 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.328, h_twin_est=2.331 | n_est=1.5618
+2025-08-23 11:08:51,504 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.327, h_twin_est=2.328 | n_est=1.5669
+2025-08-23 11:08:53,458 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.326, h_twin_est=2.328 | n_est=1.5718
+2025-08-23 11:08:55,470 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.326, h_twin_est=2.329 | n_est=1.5767
+2025-08-23 11:08:57,678 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.327, h_twin_est=2.330 | n_est=1.5814
+2025-08-23 11:08:59,694 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.329, h_twin_est=2.329 | n_est=1.5860
+2025-08-23 11:09:01,896 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.331, h_twin_est=2.332 | n_est=1.5904
+2025-08-23 11:09:04,102 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:09:04,102 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:09:04,102 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:09:04,311 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:09:04,311 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:09:04,496 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:09:04,510 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:09:04,510 - __main__ - WARNING - --- Setting new operating point: Inflow=40.00, Gate=1.00 ---
+2025-08-23 11:09:04,510 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:09:04,510 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:09:04,510 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:09:04,510 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:04,550 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.338, h_twin_est=2.335 | n_est=1.5947
+2025-08-23 11:09:04,550 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:04,596 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:04,641 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:04,684 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:06,697 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.340, h_twin_est=2.340 | n_est=1.5984
+2025-08-23 11:09:09,200 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.343, h_twin_est=2.342 | n_est=1.6022
+2025-08-23 11:09:11,509 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.345, h_twin_est=2.345 | n_est=1.6060
+2025-08-23 11:09:13,634 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.347, h_twin_est=2.349 | n_est=1.6097
+2025-08-23 11:09:15,773 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.349, h_twin_est=2.349 | n_est=1.6135
+2025-08-23 11:09:17,852 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.351, h_twin_est=2.351 | n_est=1.6172
+2025-08-23 11:09:19,940 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.353, h_twin_est=2.353 | n_est=1.6210
+2025-08-23 11:09:21,984 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.354, h_twin_est=2.357 | n_est=1.6247
+2025-08-23 11:09:24,073 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.356, h_twin_est=2.356 | n_est=1.6284
+2025-08-23 11:09:26,186 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.358, h_twin_est=2.358 | n_est=1.6322
+2025-08-23 11:09:28,404 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.359, h_twin_est=2.359 | n_est=1.6361
+2025-08-23 11:09:30,528 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.361, h_twin_est=2.361 | n_est=1.6399
+2025-08-23 11:09:32,536 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.363, h_twin_est=2.364 | n_est=1.6436
+2025-08-23 11:09:34,610 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.364, h_twin_est=2.366 | n_est=1.6472
+2025-08-23 11:09:36,741 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.366, h_twin_est=2.366 | n_est=1.6510
+2025-08-23 11:09:38,847 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.368, h_twin_est=2.368 | n_est=1.6548
+2025-08-23 11:09:40,957 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.369, h_twin_est=2.370 | n_est=1.6585
+2025-08-23 11:09:42,988 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.371, h_twin_est=2.372 | n_est=1.6622
+2025-08-23 11:09:45,027 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.372, h_twin_est=2.374 | n_est=1.6659
+2025-08-23 11:09:46,988 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:09:46,988 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:09:46,988 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:09:47,181 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:09:47,181 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:09:47,356 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:09:47,370 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:09:47,370 - __main__ - WARNING - --- Setting new operating point: Inflow=40.00, Gate=1.50 ---
+2025-08-23 11:09:47,370 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:09:47,370 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:09:47,370 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:09:47,371 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:47,408 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.377, h_twin_est=2.376 | n_est=1.6696
+2025-08-23 11:09:47,409 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:47,448 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:47,489 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:47,530 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:09:49,437 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.378, h_twin_est=2.379 | n_est=1.6732
+2025-08-23 11:09:51,212 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.380, h_twin_est=2.380 | n_est=1.6768
+2025-08-23 11:09:53,050 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.381, h_twin_est=2.382 | n_est=1.6805
+2025-08-23 11:09:55,280 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.383, h_twin_est=2.383 | n_est=1.6843
+2025-08-23 11:09:57,274 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.384, h_twin_est=2.384 | n_est=1.6879
+2025-08-23 11:09:59,348 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.385, h_twin_est=2.387 | n_est=1.6916
+2025-08-23 11:10:01,293 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.387, h_twin_est=2.388 | n_est=1.6953
+2025-08-23 11:10:03,072 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.388, h_twin_est=2.388 | n_est=1.6991
+2025-08-23 11:10:04,827 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.390, h_twin_est=2.390 | n_est=1.7030
+2025-08-23 11:10:06,995 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.391, h_twin_est=2.392 | n_est=1.7068
+2025-08-23 11:10:09,089 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.393, h_twin_est=2.393 | n_est=1.7105
+2025-08-23 11:10:10,874 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.394, h_twin_est=2.396 | n_est=1.7144
+2025-08-23 11:10:12,663 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.395, h_twin_est=2.396 | n_est=1.7182
+2025-08-23 11:10:14,492 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.397, h_twin_est=2.398 | n_est=1.7220
+2025-08-23 11:10:16,335 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.398, h_twin_est=2.400 | n_est=1.7258
+2025-08-23 11:10:18,199 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.399, h_twin_est=2.400 | n_est=1.7296
+2025-08-23 11:10:20,324 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.401, h_twin_est=2.403 | n_est=1.7335
+2025-08-23 11:10:22,297 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.402, h_twin_est=2.404 | n_est=1.7374
+2025-08-23 11:10:24,400 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.403, h_twin_est=2.405 | n_est=1.7413
+2025-08-23 11:10:26,630 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:10:26,630 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:10:26,630 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:10:26,860 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:10:26,860 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:10:27,041 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:10:27,065 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:10:27,066 - __main__ - WARNING - --- Setting new operating point: Inflow=40.00, Gate=2.00 ---
+2025-08-23 11:10:27,066 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:10:27,066 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:10:27,066 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:10:27,066 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:10:27,109 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.407, h_twin_est=2.406 | n_est=1.7453
+2025-08-23 11:10:27,110 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:10:27,151 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:10:27,196 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:10:27,238 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:10:29,302 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.408, h_twin_est=2.410 | n_est=1.7490
+2025-08-23 11:10:31,435 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.409, h_twin_est=2.409 | n_est=1.7530
+2025-08-23 11:10:33,618 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.411, h_twin_est=2.411 | n_est=1.7569
+2025-08-23 11:10:35,637 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.412, h_twin_est=2.414 | n_est=1.7608
+2025-08-23 11:10:37,660 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.413, h_twin_est=2.413 | n_est=1.7647
+2025-08-23 11:10:39,646 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.414, h_twin_est=2.416 | n_est=1.7687
+2025-08-23 11:10:41,637 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.415, h_twin_est=2.416 | n_est=1.7727
+2025-08-23 11:10:43,673 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.416, h_twin_est=2.417 | n_est=1.7768
+2025-08-23 11:10:45,475 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.418, h_twin_est=2.419 | n_est=1.7808
+2025-08-23 11:10:47,555 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.419, h_twin_est=2.421 | n_est=1.7847
+2025-08-23 11:10:49,599 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.420, h_twin_est=2.421 | n_est=1.7888
+2025-08-23 11:10:51,438 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.421, h_twin_est=2.424 | n_est=1.7929
+2025-08-23 11:10:53,152 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.422, h_twin_est=2.424 | n_est=1.7970
+2025-08-23 11:10:54,869 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.423, h_twin_est=2.425 | n_est=1.8012
+2025-08-23 11:10:56,660 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.425, h_twin_est=2.426 | n_est=1.8054
+2025-08-23 11:10:58,424 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.426, h_twin_est=2.427 | n_est=1.8096
+2025-08-23 11:11:00,389 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.427, h_twin_est=2.427 | n_est=1.8138
+2025-08-23 11:11:02,583 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.428, h_twin_est=2.430 | n_est=1.8180
+2025-08-23 11:11:04,765 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.429, h_twin_est=2.431 | n_est=1.8222
+2025-08-23 11:11:06,824 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:11:06,824 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:11:06,824 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:11:07,081 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:11:07,081 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:11:07,271 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:11:07,294 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:11:07,294 - __main__ - WARNING - --- Setting new operating point: Inflow=40.00, Gate=2.50 ---
+2025-08-23 11:11:07,294 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:11:07,294 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:11:07,294 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:11:07,294 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:11:07,334 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.432, h_twin_est=2.431 | n_est=1.8265
+2025-08-23 11:11:07,334 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:11:07,377 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:11:07,420 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:11:07,460 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 40.0
+2025-08-23 11:11:09,334 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.433, h_twin_est=2.435 | n_est=1.8306
+2025-08-23 11:11:13,339 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.434, h_twin_est=2.435 | n_est=1.8348
+2025-08-23 11:11:15,333 - digital_twin_hydraulic_system.simulation_manager - INFO - T=151.0s | h_true=2.435, h_twin_est=2.437 | n_est=1.8390
+2025-08-23 11:11:17,418 - digital_twin_hydraulic_system.simulation_manager - INFO - T=201.0s | h_true=2.436, h_twin_est=2.437 | n_est=1.8433
+2025-08-23 11:11:19,593 - digital_twin_hydraulic_system.simulation_manager - INFO - T=251.0s | h_true=2.437, h_twin_est=2.440 | n_est=1.8476
+2025-08-23 11:11:21,761 - digital_twin_hydraulic_system.simulation_manager - INFO - T=301.0s | h_true=2.438, h_twin_est=2.438 | n_est=1.8520
+2025-08-23 11:11:23,941 - digital_twin_hydraulic_system.simulation_manager - INFO - T=351.0s | h_true=2.439, h_twin_est=2.440 | n_est=1.8563
+2025-08-23 11:11:26,007 - digital_twin_hydraulic_system.simulation_manager - INFO - T=401.0s | h_true=2.440, h_twin_est=2.441 | n_est=1.8608
+2025-08-23 11:11:27,964 - digital_twin_hydraulic_system.simulation_manager - INFO - T=451.0s | h_true=2.441, h_twin_est=2.442 | n_est=1.8652
+2025-08-23 11:11:29,911 - digital_twin_hydraulic_system.simulation_manager - INFO - T=501.0s | h_true=2.442, h_twin_est=2.445 | n_est=1.8695
+2025-08-23 11:11:31,906 - digital_twin_hydraulic_system.simulation_manager - INFO - T=551.0s | h_true=2.443, h_twin_est=2.444 | n_est=1.8739
+2025-08-23 11:11:34,085 - digital_twin_hydraulic_system.simulation_manager - INFO - T=601.0s | h_true=2.444, h_twin_est=2.446 | n_est=1.8784
+2025-08-23 11:11:36,204 - digital_twin_hydraulic_system.simulation_manager - INFO - T=651.0s | h_true=2.445, h_twin_est=2.446 | n_est=1.8829
+2025-08-23 11:11:38,173 - digital_twin_hydraulic_system.simulation_manager - INFO - T=701.0s | h_true=2.446, h_twin_est=2.449 | n_est=1.8873
+2025-08-23 11:11:40,206 - digital_twin_hydraulic_system.simulation_manager - INFO - T=751.0s | h_true=2.447, h_twin_est=2.448 | n_est=1.8919
+2025-08-23 11:11:42,270 - digital_twin_hydraulic_system.simulation_manager - INFO - T=801.0s | h_true=2.448, h_twin_est=2.449 | n_est=1.8964
+2025-08-23 11:11:44,245 - digital_twin_hydraulic_system.simulation_manager - INFO - T=851.0s | h_true=2.449, h_twin_est=2.450 | n_est=1.9010
+2025-08-23 11:11:46,314 - digital_twin_hydraulic_system.simulation_manager - INFO - T=901.0s | h_true=2.449, h_twin_est=2.452 | n_est=1.9055
+2025-08-23 11:11:48,455 - digital_twin_hydraulic_system.simulation_manager - INFO - T=951.0s | h_true=2.450, h_twin_est=2.453 | n_est=1.9101
+2025-08-23 11:11:50,503 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation duration reached.
+2025-08-23 11:11:50,503 - digital_twin_hydraulic_system.simulation_manager - INFO - Full simulation finished.
+2025-08-23 11:11:50,503 - digital_twin_hydraulic_system.visualization - INFO - Plotting water levels...
+2025-08-23 11:11:50,757 - digital_twin_hydraulic_system.visualization - INFO - Water level plot saved to water_level_comparison.png
+2025-08-23 11:11:50,757 - digital_twin_hydraulic_system.visualization - INFO - Plotting convergence of Manning's n...
+2025-08-23 11:11:50,981 - digital_twin_hydraulic_system.visualization - INFO - Parameter convergence plot saved to parameter_convergence_n_est.png
+2025-08-23 11:11:51,004 - digital_twin_hydraulic_system.visualization - INFO - Simulation log saved to offline_identification_data.csv (mode: a)
+2025-08-23 11:11:51,004 - __main__ - WARNING - --- Setting new operating point: Inflow=50.00, Gate=0.50 ---
+2025-08-23 11:11:51,005 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:11:51,005 - digital_twin_hydraulic_system.simulation_manager - INFO - Starting full EKF simulation for 1000 seconds...
+2025-08-23 11:11:51,005 - digital_twin_hydraulic_system.simulation_manager - INFO - Simulation state has been reset.
+2025-08-23 11:11:51,005 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 50.0
+2025-08-23 11:11:51,045 - digital_twin_hydraulic_system.simulation_manager - INFO - T=  1.0s | h_true=2.452, h_twin_est=2.455 | n_est=1.9147
+2025-08-23 11:11:51,046 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 50.0
+2025-08-23 11:11:51,088 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 50.0
+2025-08-23 11:11:51,131 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 50.0
+2025-08-23 11:11:51,173 - digital_twin_hydraulic_system.simulation_manager - INFO - DEBUG: Inflow for step is 50.0
+2025-08-23 11:11:53,156 - digital_twin_hydraulic_system.simulation_manager - INFO - T= 51.0s | h_true=2.453, h_twin_est=2.456 | n_est=1.9193
+2025-08-23 11:11:55,204 - digital_twin_hydraulic_system.simulation_manager - INFO - T=101.0s | h_true=2.454, h_twin_est=2.456 | n_est=1.9239

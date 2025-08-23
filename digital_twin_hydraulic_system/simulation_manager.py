@@ -144,6 +144,10 @@ class SimulationManager:
                 self._apply_perturbation(self.perturbations[self.p_idx]['type'], self.perturbations[self.p_idx]['params'])
                 self.p_idx += 1
 
+            # DEBUG LOG
+            if self.timestamp < 5 or (self.timestamp > 999 and self.timestamp < 1005):
+                 logger.info(f"DEBUG: Inflow for step is {self.config.UPSTREAM_INFLOW}")
+
             self.model_a.step(dt, {'type': 'inflow', 'value': self.config.UPSTREAM_INFLOW}, {'type': 'fixed_depth', 'value': self.h_true_gate_upstream})
             model_a_state = self.model_a.get_state()
             self.h_true_gate_upstream = model_a_state['h'][-1]
@@ -158,7 +162,6 @@ class SimulationManager:
             h_func, H_jac = self._get_observation_model(self.ekf.x)
 
             # --- Fault Detection & EKF Update ---
-            # First, diagnose faults based on the PREDICTED state vs sensor readings
             cleaned_readings = self.preprocessor.filter(raw_readings)
             nx = self.config.NUM_CELLS
             h_twin_pred = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
@@ -169,25 +172,28 @@ class SimulationManager:
                 cleaned_readings, model_predictions, self.gate_opening, self.config.INITIAL_GATE_COEFF_GUESS
             )
 
-            # Now, create a custom R matrix for the EKF update step
-            # If a sensor has a fault, we dramatically increase its noise variance
-            # to make the EKF ignore its measurement.
             R_step = self.ekf.R.copy()
-            if 'h_gate_up' in active_faults:
-                R_step[0, 0] *= 1e6
-            if 'q_gate_down' in active_faults:
-                R_step[1, 1] *= 1e6
-
-            # Update the EKF with the (potentially untrustworthy) measurements
+            if 'h_gate_up' in active_faults: R_step[0, 0] *= 1e6
+            if 'q_gate_down' in active_faults: R_step[1, 1] *= 1e6
             self.ekf.update(z, H_jac, h_func, R_override=R_step)
 
-            h_twin_best_est = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1])
+            # --- Simplified Model Step (for offline identification) ---
+            # This is not used in the EKF loop, but we run it to log its I/O
+            q_input_for_b = self.gate_model.calculate_flow(
+                self.h_true_gate_upstream, self.config.INITIAL_WATER_DEPTH, self.gate_opening, self.config.INITIAL_GATE_COEFF_GUESS
+            )
+            model_b_output = self.model_b.step(dt, q_input_for_b)
+
+            # --- Logging ---
+            h_twin_best_est = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
             self.visualizer.log_state(self.timestamp, {
                 'h_true': self.h_true_gate_upstream,
                 'h_twin': h_twin_best_est,
                 'n_true': self.model_a.manning_n,
                 'n_est': self.ekf.x[-1],
-                'status': status_msg
+                'status': status_msg,
+                'q_in_for_id_model': self.config.UPSTREAM_INFLOW, # Use the main inflow as input
+                'h_out_id_model': model_b_output
             })
             self.timestamp += dt
 

@@ -109,6 +109,49 @@ def main():
     # run_noise_fault_scenario()
     # run_parameter_estimation_scenario()
     # run_drift_fault_scenario()
+    run_data_generation_scenario()
+
+def run_data_generation_scenario():
+    """
+    Runs the simulation through a series of steady-state operating points
+    to generate a rich dataset for offline model identification.
+    """
+    logger.info("--- Running Data Generation Scenario ---")
+    sim_manager = SimulationManager(config)
+
+    # Define the operating points to sweep through
+    inflow_points = np.linspace(30, 80, 6)
+    gate_points = np.linspace(0.5, 2.5, 5)
+
+    # Ensure the file is fresh
+    import os
+    output_filename = "offline_identification_data.csv"
+    if os.path.exists(output_filename):
+        os.remove(output_filename)
+
+    total_duration = 0
+    first_run = True
+    for inflow in inflow_points:
+        for gate_opening in gate_points:
+            logger.warning(f"--- Setting new operating point: Inflow={inflow:.2f}, Gate={gate_opening:.2f} ---")
+
+            sim_manager.visualizer.results_log = [] # Clear the log for the new run
+            sim_manager.reset_simulation_state()
+            config.UPSTREAM_INFLOW = inflow # Modify the module directly
+            sim_manager.gate_opening = gate_opening
+
+            duration_per_point = 1000
+            config.SIMULATION_DURATION = duration_per_point
+            sim_manager.run_full_simulation()
+
+            # Save data incrementally
+            sim_manager.visualizer.save_log_to_csv(output_filename, append=not first_run)
+            first_run = False
+            total_duration += duration_per_point
+
+    # Save all the collected data
+    # sim_manager.visualizer.save_log_to_csv("offline_identification_data.csv")
+    logger.info(f"--- Data generation complete. Total simulated time: {total_duration}s ---")
 
 def run_drift_fault_scenario():
     """
