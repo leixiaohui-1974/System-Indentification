@@ -17,4 +17,6 @@ digital_twin_hydraulic_system/models/__init__.py
 digital_twin_hydraulic_system/models/fvm_channel_model.py
 digital_twin_hydraulic_system/models/gate_model.py
 digital_twin_hydraulic_system/models/id_channel_model.py
+tests/test_fault_detector.py
 tests/test_gate_model.py
+tests/test_system_identifier.py
