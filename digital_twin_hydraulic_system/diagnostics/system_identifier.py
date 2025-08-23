@@ -7,6 +7,9 @@ including RLS for simple models and EKF/UKF for complex, non-linear
 state and parameter estimation.
 """
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 class SystemIdentifier:
     def __init__(self, config):
@@ -14,20 +17,14 @@ class SystemIdentifier:
         Initializes the system identification engine.
         """
         self.config = config
-        # --- RLS for Model B (ID Model) ---
-        # y(k) = theta' * phi(k-1)
-        # We need to identify theta = [a1, b1]'
-        self.rls_theta = np.array([0.9, 0.1]) # Initial guess for [a1, b1]
-        self.rls_P = np.identity(2) * 1000 # Covariance matrix
-        self.rls_lambda = config.RLS_FORGETTING_FACTOR # Forgetting factor
+        self.rls_theta = np.array([0.9, 0.1])
+        self.rls_P = np.identity(2) * 1000
+        self.rls_lambda = config.RLS_FORGETTING_FACTOR
 
-        # --- EKF/UKF for Model A (FVM Model) ---
-        # This is more complex and will be set up later.
-        # It will estimate states (h, Q) and parameters (n, q_lat)
         self.kf_state_estimate = None
         self.kf_param_estimate = {'manning_n': config.INITIAL_MANNING_GUESS}
 
-        print("System Identifier initialized.")
+        logger.debug("System Identifier initialized.")
 
     def run_rls_step(self, y_k, phi_k):
         """

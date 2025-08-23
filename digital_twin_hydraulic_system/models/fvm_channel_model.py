@@ -4,6 +4,9 @@ High-fidelity channel model (Model A) using the Finite Volume Method
 to solve the 1D Saint-Venant equations.
 """
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 class FVMChannelModel:
     def __init__(self, config):
@@ -19,15 +22,10 @@ class FVMChannelModel:
         self.bottom_width = config.CHANNEL_BOTTOM_WIDTH
         self.side_slope = config.CHANNEL_SIDE_SLOPE
 
-        # State vectors [A, Q] - Area and Discharge
         self.U = np.zeros((2, self.nx))
-        # Water depth and discharge at cell centers
         self.h = np.full(self.nx, config.INITIAL_WATER_DEPTH)
         self.A = self._area(self.h)
 
-        # Initialize with a reasonable steady-state flow (uniform flow)
-        # to avoid initial shock and false fault detection.
-        # Q_uniform = (1/n) * A * R^(2/3) * S0^(1/2)
         initial_h = config.INITIAL_WATER_DEPTH
         initial_A = (self.bottom_width + self.side_slope * initial_h) * initial_h
         initial_P = self.bottom_width + 2 * initial_h * np.sqrt(1 + self.side_slope**2)
@@ -38,7 +36,7 @@ class FVMChannelModel:
         self.U[0, :] = self.A
         self.U[1, :] = self.Q
 
-        print("FVM Channel Model (Model A) initialized.")
+        logger.debug("FVM Channel Model (Model A) initialized.")
 
     def _area(self, h):
         return (self.bottom_width + self.side_slope * h) * h

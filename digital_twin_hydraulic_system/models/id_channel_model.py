@@ -5,6 +5,9 @@ Integral-Delay representation.
 """
 import numpy as np
 from collections import deque
+import logging
+
+logger = logging.getLogger(__name__)
 
 class IDChannelModel:
     def __init__(self, config):
@@ -13,19 +16,15 @@ class IDChannelModel:
         """
         self.config = config
 
-        # Initial parameter guesses from config
-        # These will be updated online by the RLS algorithm
-        self.K = 1.0  # Proportional/Integral constant (placeholder)
-        self.a1 = 0.98 # Autoregressive term, related to T_i
-        self.b1 = 0.02 # Input term, related to K
-        self.delay_steps = 5 # Time delay in integer steps, related to T_d
+        self.K = 1.0
+        self.a1 = 0.98
+        self.b1 = 0.02
+        self.delay_steps = 5
 
-        # Input/output buffers for the discrete model
-        # We model h_down(k) = a1*h_down(k-1) + b1*q_up(k-d)
-        self.input_buffer = deque(np.zeros(50), maxlen=50) # Buffer for q_up
+        self.input_buffer = deque(np.zeros(50), maxlen=50)
         self.h_down_prev = config.INITIAL_WATER_DEPTH
 
-        print("Integral-Delay Channel Model (Model B) initialized.")
+        logger.debug("Integral-Delay Channel Model (Model B) initialized.")
 
     def step(self, dt, upstream_flow):
         """
@@ -65,4 +64,4 @@ class IDChannelModel:
         self.a1 = params.get('a1', self.a1)
         self.b1 = params.get('b1', self.b1)
         self.delay_steps = params.get('delay', self.delay_steps)
-        print(f"INFO: Model B parameters updated: a1={self.a1:.3f}, b1={self.b1:.3f}, delay={self.delay_steps}")
+        logger.debug(f"Model B parameters updated: a1={self.a1:.3f}, b1={self.b1:.3f}, delay={self.delay_steps}")

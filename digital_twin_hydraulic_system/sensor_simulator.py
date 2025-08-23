@@ -7,11 +7,15 @@ true data from the high-fidelity model (Model A) and generates noisy
 sensor readings. It can also simulate sensor faults.
 """
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 class SensorSimulator:
     def __init__(self, config):
         self.config = config
         self.faults = {} # Dictionary to store fault configurations
+        logger.debug("Sensor Simulator initialized.")
 
     def get_readings(self, true_values):
         """
@@ -54,4 +58,4 @@ class SensorSimulator:
         Example: fault_type='stuck_at_zero', 'drift', 'loss_of_signal'
         """
         self.faults[sensor_id] = {'type': fault_type, 'value': value}
-        print(f"INFO: Fault '{fault_type}' induced on sensor '{sensor_id}'.")
+        logger.info(f"Fault '{fault_type}' induced on sensor '{sensor_id}'.")

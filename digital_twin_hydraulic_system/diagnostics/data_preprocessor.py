@@ -7,6 +7,9 @@ fed into the diagnostic and identification systems.
 """
 from collections import deque
 import numpy as np
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DataPreprocessor:
     def __init__(self, filter_type='moving_average', window_size=5):
@@ -15,8 +18,8 @@ class DataPreprocessor:
         """
         self.filter_type = filter_type
         self.window_size = window_size
-        self.buffers = {} # One buffer per sensor signal
-        print(f"Data Preprocessor initialized with {filter_type} filter (window={window_size}).")
+        self.buffers = {}
+        logger.debug(f"Data Preprocessor initialized with {filter_type} filter (window={window_size}).")
 
     def filter(self, raw_data):
         """
