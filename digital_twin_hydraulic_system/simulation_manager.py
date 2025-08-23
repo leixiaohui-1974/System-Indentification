@@ -61,9 +61,11 @@ class SimulationManager:
             self.model_a.manning_n = new_n
             logger.info(f"Model A (real world) Manning's n changed to {new_n}")
         elif p_type == 'sensor_fault':
-            sensor_id = params.get('sensor_id')
-            fault_type = params.get('fault_type')
-            self.sensor_sim.induce_fault(sensor_id, fault_type)
+            # Pop the main identifiers, pass the rest as fault parameters (e.g., value)
+            sensor_id = params.pop('sensor_id', None)
+            fault_type = params.pop('fault_type', None)
+            if sensor_id and fault_type:
+                self.sensor_sim.induce_fault(sensor_id, fault_type, **params)
         else:
             logger.warning(f"Unknown perturbation type '{p_type}'")
 
@@ -120,22 +122,10 @@ class SimulationManager:
             }
 
             # 5. Simulate and Process Sensor Data
-            raw_readings = self.sensor_sim.get_readings(true_values)
+            raw_readings = self.sensor_sim.get_readings(true_values, dt)
             cleaned_readings = self.preprocessor.filter(raw_readings)
 
-            # 6. Diagnose Faults
-            gate_cq_est = self.config.INITIAL_GATE_COEFF_GUESS
-            reliable_data, status_msg = self.fault_detector.diagnose(cleaned_readings, self.gate_opening, gate_cq_est)
-
-            # 7. System Identification (if data is reliable)
-            if 'h_gate_down' in reliable_data and 'q_gate_down' in reliable_data:
-                y_k = reliable_data['h_gate_down']
-                if len(self.model_b.input_buffer) > self.model_b.delay_steps:
-                    delayed_input = self.model_b.input_buffer[self.model_b.delay_steps]
-                    phi_k = np.array([self.model_b.h_down_prev, delayed_input])
-                    self.identifier.run_rls_step(y_k, phi_k)
-
-            # 8. Update Digital Twin (Model B)
+            # 6. Update and Step Digital Twin (Model B) to get prediction
             self.identified_params = self.identifier.get_identified_params()
             self.model_b.update_params(self.identified_params['model_b_params'])
 
@@ -146,6 +136,21 @@ class SimulationManager:
                 Cq=self.config.INITIAL_GATE_COEFF_GUESS # Using initial guess as it's not identified online yet
             )
             model_b_prediction = self.model_b.step(dt, q_input_for_b)
+            model_b_predictions = {'h_gate_down': model_b_prediction}
+
+            # 7. Diagnose Faults using sensor data and twin's prediction
+            gate_cq_est = self.config.INITIAL_GATE_COEFF_GUESS
+            reliable_data, status_msg = self.fault_detector.diagnose(
+                cleaned_readings, model_b_predictions, self.gate_opening, gate_cq_est
+            )
+
+            # 8. System Identification (if data is reliable)
+            if 'h_gate_down' in reliable_data and 'q_gate_down' in reliable_data:
+                y_k = reliable_data['h_gate_down']
+                if len(self.model_b.input_buffer) > self.model_b.delay_steps:
+                    delayed_input = self.model_b.input_buffer[self.model_b.delay_steps]
+                    phi_k = np.array([self.model_b.h_down_prev, delayed_input])
+                    self.identifier.run_rls_step(y_k, phi_k)
 
             # 9. Log and Print Status
             # 9. Log and Print Status
@@ -153,7 +158,7 @@ class SimulationManager:
                 log_state = {'h_profile': self.model_a.get_state()['h']}
             else:
                 log_state = {
-                    'h_true': h_true_downstream,
+                    'h_true': h_true_gate_downstream,
                     'h_twin': model_b_prediction,
                     'param_a1': self.identified_params['model_b_params']['a1'],
                     'param_b1': self.identified_params['model_b_params']['b1'],

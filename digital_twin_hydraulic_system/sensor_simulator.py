@@ -14,48 +14,85 @@ logger = logging.getLogger(__name__)
 class SensorSimulator:
     def __init__(self, config):
         self.config = config
-        self.faults = {} # Dictionary to store fault configurations
+        self.faults = {} # Stores active faults: {'sensor_id': {'type': 'stuck', 'value': 5.0}}
+        self.drift_accumulators = {} # Stores accumulated drift: {'sensor_id': 0.1}
         logger.debug("Sensor Simulator initialized.")
 
-    def get_readings(self, true_values):
+    def get_readings(self, true_values, dt):
         """
-        Generates sensor readings from true physical values.
+        Generates sensor readings from true physical values for a given timestep.
 
         Args:
-            true_values (dict): A dictionary of true values, e.g.,
-                                {'h_up': 3.0, 'q_down': 50.5}.
+            true_values (dict): A dictionary of true values.
+            dt (float): The current simulation timestep, used for drift calculation.
 
         Returns:
             dict: A dictionary of noisy sensor readings.
         """
         readings = {}
         for key, value in true_values.items():
+            noise = self._get_noise(key) # Get base noise level
+
             # Check if a fault is active for this sensor
             if key in self.faults:
                 fault = self.faults[key]
-                if fault['type'] == 'stuck_at_zero':
-                    readings[key] = 0.0
-                elif fault['type'] == 'drift':
-                    readings[key] = value + fault['value'] # Add drift instead of noise
-                else: # Default to normal operation with noise
-                    readings[key] = value + self._get_noise(key)
-            else:
-                # Normal operation
-                readings[key] = value + self._get_noise(key)
+                fault_type = fault.get('type')
+
+                if fault_type == 'stuck':
+                    readings[key] = fault['value']
+                    continue # Skip other processing
+
+                elif fault_type == 'increased_noise':
+                    # Apply noise with a higher magnitude
+                    noise = self._get_noise(key, override_level=fault['value'])
+
+                elif fault_type == 'drift':
+                    # Accumulate drift over time
+                    drift_rate = fault['value']
+                    self.drift_accumulators[key] += drift_rate * dt
+
+            # Apply final accumulated drift and noise
+            accumulated_drift = self.drift_accumulators.get(key, 0.0)
+            readings[key] = value + accumulated_drift + noise
+
         return readings
 
-    def _get_noise(self, key):
-        """Helper function to get noise based on sensor type."""
+    def _get_noise(self, key, override_level=None):
+        """
+        Helper function to get noise for a sensor.
+        Can be overridden with a specific noise level for fault simulation.
+        """
+        base_level = 0
         if 'h' in key: # Water level
-            return np.random.normal(0, self.config.NOISE_LEVEL_WATER_LEVEL)
+            base_level = self.config.NOISE_LEVEL_WATER_LEVEL
         elif 'q' in key: # Flow
-            return np.random.normal(0, self.config.NOISE_LEVEL_FLOW)
-        return 0
+            base_level = self.config.NOISE_LEVEL_FLOW
 
-    def induce_fault(self, sensor_id, fault_type, value=0):
+        noise_level = override_level if override_level is not None else base_level
+        return np.random.normal(0, noise_level)
+
+    def induce_fault(self, sensor_id, fault_type, **kwargs):
         """
         Induces a fault on a specific sensor.
-        Example: fault_type='stuck_at_zero', 'drift', 'loss_of_signal'
+
+        Args:
+            sensor_id (str): The ID of the sensor to affect (e.g., 'h_gate_up').
+            fault_type (str): Type of fault ('stuck', 'drift', 'increased_noise').
+            **kwargs:
+                value (float): For 'stuck', the value to be stuck at.
+                               For 'drift', the drift rate per second.
+                               For 'increased_noise', the new noise standard deviation.
         """
-        self.faults[sensor_id] = {'type': fault_type, 'value': value}
-        logger.info(f"Fault '{fault_type}' induced on sensor '{sensor_id}'.")
+        if fault_type not in ['stuck', 'drift', 'increased_noise']:
+            logger.error(f"Unknown fault type '{fault_type}' requested.")
+            return
+
+        # Pop 'value' from kwargs, as it's the primary parameter
+        value = kwargs.get('value', 0)
+        fault_config = {'type': fault_type, 'value': value}
+        self.faults[sensor_id] = fault_config
+
+        if fault_type == 'drift':
+            self.drift_accumulators[sensor_id] = self.drift_accumulators.get(sensor_id, 0.0)
+
+        logger.info(f"Fault '{fault_type}' induced on sensor '{sensor_id}' with value {value}.")

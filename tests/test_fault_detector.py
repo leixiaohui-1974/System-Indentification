@@ -27,7 +27,8 @@ def test_diagnose_nominal_conditions(fault_detector):
     }
 
     # 2. Action
-    reliable_data, status = fault_detector.diagnose(cleaned_data, gate_opening, gate_cq_estimate)
+    model_b_predictions = {} # Dummy for this test
+    reliable_data, status = fault_detector.diagnose(cleaned_data, model_b_predictions, gate_opening, gate_cq_estimate)
 
     # 3. Assert
     assert status == "All systems nominal."
@@ -47,7 +48,8 @@ def test_diagnose_stuck_at_zero_fault(fault_detector):
     }
 
     # 2. Action
-    reliable_data, status = fault_detector.diagnose(cleaned_data, gate_opening, gate_cq_estimate)
+    model_b_predictions = {} # Dummy for this test
+    reliable_data, status = fault_detector.diagnose(cleaned_data, model_b_predictions, gate_opening, gate_cq_estimate)
 
     # 3. Assert
     assert "Fault detected in 'q_gate_down'" in status
@@ -66,7 +68,8 @@ def test_fault_persistence(fault_detector):
         'h_gate_down': 2.5,
         'q_gate_down': 0.005
     }
-    fault_detector.diagnose(faulty_data, gate_opening, gate_cq_estimate)
+    model_b_predictions = {} # Dummy for this test
+    fault_detector.diagnose(faulty_data, model_b_predictions, gate_opening, gate_cq_estimate)
 
     # Assert that the fault is now active internally
     assert 'q_gate_down' in fault_detector.active_faults
@@ -78,8 +81,9 @@ def test_fault_persistence(fault_detector):
         'h_gate_down': 2.6,
         'q_gate_down': 40.0 # A new, valid-looking reading
     }
-    reliable_data, status = fault_detector.diagnose(new_data, gate_opening, gate_cq_estimate)
+    model_b_predictions = {} # Dummy for this test
+    reliable_data, status = fault_detector.diagnose(new_data, model_b_predictions, gate_opening, gate_cq_estimate)
 
     # 3. Assert
-    assert "is isolated due to a persistent fault" in status
+    assert "is isolated due to:" in status # Check for the generic isolation message
     assert 'q_gate_down' not in reliable_data # Data should still be removed

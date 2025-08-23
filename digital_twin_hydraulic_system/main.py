@@ -69,6 +69,27 @@ def run_combined_scenario():
     logger.info("--- Combined scenario complete. ---")
 
 
+def run_noise_fault_scenario():
+    """
+    Defines and runs a scenario to test the 'increased_noise' fault detection.
+    """
+    logger.info("--- Running Increased Noise Fault Scenario ---")
+    # Reset duration to normal if it was changed by another scenario
+    config.SIMULATION_DURATION = 3600
+    sim_manager = SimulationManager(config)
+
+    # Schedule a fault where the noise level of a sensor increases dramatically
+    sim_manager.add_perturbation(
+        event_time=1000,
+        event_type='sensor_fault',
+        sensor_id='h_gate_down',
+        fault_type='increased_noise',
+        value=config.NOISE_LEVEL_WATER_LEVEL * 5 # 5x the normal noise
+    )
+
+    sim_manager.run_simulation()
+    logger.info("--- Increased noise fault scenario complete. ---")
+
 def main():
     """
     Orchestrates the setup and execution of a simulation scenario.
@@ -79,10 +100,11 @@ def main():
     logger.info("=================================")
 
     # Run the desired scenario
-    # run_sensor_fault_scenario()
+    run_sensor_fault_scenario()
     # run_roughness_change_scenario()
     # run_combined_scenario()
-    run_dam_break_scenario()
+    # run_dam_break_scenario()
+    # run_noise_fault_scenario()
 
 def run_dam_break_scenario():
     """
