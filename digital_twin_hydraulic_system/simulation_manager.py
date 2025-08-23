@@ -156,13 +156,38 @@ class SimulationManager:
             raw_readings = self.sensor_sim.get_readings(true_values, dt)
             z = np.array([raw_readings.get('h_gate_up', 0), raw_readings.get('q_gate_down', 0)])
             h_func, H_jac = self._get_observation_model(self.ekf.x)
-            self.ekf.update(z, H_jac, h_func)
 
+            # --- Fault Detection & EKF Update ---
+            # First, diagnose faults based on the PREDICTED state vs sensor readings
+            cleaned_readings = self.preprocessor.filter(raw_readings)
+            nx = self.config.NUM_CELLS
+            h_twin_pred = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
+            q_twin_pred = self.ekf.x[2*nx-1]
+            model_predictions = {'h_gate_up': h_twin_pred, 'q_gate_down': q_twin_pred}
+
+            _, status_msg, active_faults = self.fault_detector.diagnose(
+                cleaned_readings, model_predictions, self.gate_opening, self.config.INITIAL_GATE_COEFF_GUESS
+            )
+
+            # Now, create a custom R matrix for the EKF update step
+            # If a sensor has a fault, we dramatically increase its noise variance
+            # to make the EKF ignore its measurement.
+            R_step = self.ekf.R.copy()
+            if 'h_gate_up' in active_faults:
+                R_step[0, 0] *= 1e6
+            if 'q_gate_down' in active_faults:
+                R_step[1, 1] *= 1e6
+
+            # Update the EKF with the (potentially untrustworthy) measurements
+            self.ekf.update(z, H_jac, h_func, R_override=R_step)
+
+            h_twin_best_est = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1])
             self.visualizer.log_state(self.timestamp, {
                 'h_true': self.h_true_gate_upstream,
-                'h_twin': self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[self.config.NUM_CELLS-1]),
+                'h_twin': h_twin_best_est,
                 'n_true': self.model_a.manning_n,
-                'n_est': self.ekf.x[-1]
+                'n_est': self.ekf.x[-1],
+                'status': status_msg
             })
             self.timestamp += dt
 
@@ -172,8 +197,14 @@ class SimulationManager:
         """Runs the entire simulation from start to finish (for non-interactive modes)."""
         logger.info(f"Starting full EKF simulation for {self.config.SIMULATION_DURATION} seconds...")
         self.reset_simulation_state()
+        log_time_tracker = -100
         while self.step_simulation(num_steps=1):
-            pass
+            if self.timestamp - log_time_tracker >= 50:
+                nx = self.config.NUM_CELLS
+                h_twin_best_est = self.model_twin_fvm._get_depth_from_area_scalar(self.ekf.x[nx-1])
+                n_est = self.ekf.x[-1]
+                logger.info(f"T={self.timestamp:5.1f}s | h_true={self.h_true_gate_upstream:.3f}, h_twin_est={h_twin_best_est:.3f} | n_est={n_est:.4f}")
+                log_time_tracker = self.timestamp
         logger.info("Full simulation finished.")
         self.visualizer.plot_water_levels()
         self.visualizer.plot_parameter_convergence('n_est', 'n_true', 'Manning\'s n')

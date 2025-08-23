@@ -26,9 +26,11 @@ class FaultDetector:
         self.noise_factor_threshold = 3.0
         self.drift_threshold_h = 0.1 # 10cm drift for water level
         self.drift_threshold_q = 1.0 # 1 m^3/s drift for flow
+        self.ema_alpha = 0.05 # Smoothing factor for drift detection
 
         # --- State tracking ---
         self.reading_windows = {} # {'sensor_id': deque([val1, val2, ...])}
+        self.smoothed_residuals = {} # {'sensor_id': 0.0}
         self.active_faults = {}   # {'sensor_id': 'fault_type'}
         logger.debug("Fault Detector initialized.")
 
@@ -36,6 +38,7 @@ class FaultDetector:
         """Resets the fault detector's state."""
         self.active_faults.clear()
         self.reading_windows.clear()
+        self.smoothed_residuals.clear()
         logger.info("Fault detector has been reset.")
 
     def _update_windows(self, cleaned_data):
@@ -57,18 +60,24 @@ class FaultDetector:
         return None
 
     def _check_model_deviation(self, sensor_id, window, model_b_predictions):
-        """Check for significant deviation from the twin model's prediction (detects drift/bias)."""
+        """Check for significant deviation from the twin model's prediction using a smoothed residual."""
         if sensor_id not in model_b_predictions:
             return None
 
+        # We use the most recent reading for the current residual
+        current_reading = window[-1]
         prediction = model_b_predictions[sensor_id]
-        residuals = [reading - prediction for reading in window]
-        mean_residual = np.mean(residuals)
+        current_residual = current_reading - prediction
+
+        # Update the smoothed residual using an Exponential Moving Average
+        last_smoothed_residual = self.smoothed_residuals.get(sensor_id, 0.0)
+        new_smoothed_residual = (self.ema_alpha * current_residual) + (1 - self.ema_alpha) * last_smoothed_residual
+        self.smoothed_residuals[sensor_id] = new_smoothed_residual
 
         threshold = self.drift_threshold_h if 'h' in sensor_id else self.drift_threshold_q
 
-        if abs(mean_residual) > threshold:
-            return f"Model Deviation (Mean Residual: {mean_residual:.3f})"
+        if abs(new_smoothed_residual) > threshold:
+            return f"Model Deviation (Smoothed Residual: {new_smoothed_residual:.3f})"
         return None
 
     def _check_redundancy(self, reliable_data, gate_opening, gate_cq_estimate):
@@ -103,11 +112,11 @@ class FaultDetector:
             if sensor_id in self.active_faults or len(window) < self.window_size:
                 continue
 
-            fault_reason = self._check_increased_noise(sensor_id, window)
+            # Check for model deviation (drift) first, as it can also cause high variance
+            fault_reason = self._check_model_deviation(sensor_id, window, model_b_predictions)
             if not fault_reason:
-                 # For now, let's assume model deviation check is not yet implemented
-                 # fault_reason = self._check_model_deviation(sensor_id, window, model_b_predictions)
-                 pass
+                # If no drift is detected, then check for unusual noise
+                fault_reason = self._check_increased_noise(sensor_id, window)
 
             if fault_reason:
                 fault_msg = f"Fault detected in '{sensor_id}'! (Type: {fault_reason}). Isolating sensor."
@@ -135,4 +144,4 @@ class FaultDetector:
         else:
             final_status = " | ".join(sorted(list(set(status_messages))))
 
-        return reliable_data, final_status
+        return reliable_data, final_status, self.active_faults

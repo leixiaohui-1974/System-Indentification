@@ -102,12 +102,33 @@ def main():
     logger.info("=================================")
 
     # Run the desired scenario
-    run_sensor_fault_scenario()
+    # run_sensor_fault_scenario()
     # run_roughness_change_scenario()
     # run_combined_scenario()
     # run_dam_break_scenario()
     # run_noise_fault_scenario()
     # run_parameter_estimation_scenario()
+    # run_drift_fault_scenario()
+
+def run_drift_fault_scenario():
+    """
+    Defines and runs a scenario to test the 'drift' fault detection.
+    """
+    logger.info("--- Running Drift Fault Scenario ---")
+    config.SIMULATION_DURATION = 3000
+    sim_manager = SimulationManager(config)
+
+    # Schedule a fault where a sensor starts to drift slowly
+    sim_manager.add_perturbation(
+        event_time=500,
+        event_type='sensor_fault',
+        sensor_id='h_gate_up',
+        fault_type='drift',
+        value=0.002 # Drifting at 2mm per second
+    )
+
+    sim_manager.run_full_simulation()
+    logger.info("--- Drift fault scenario complete. ---")
 
 def run_parameter_estimation_scenario():
     """

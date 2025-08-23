@@ -150,9 +150,10 @@ class ExtendedKalmanFilter:
         self.fvm_model.step(dt, upstream_bc, downstream_bc)
         self.x = self._get_model_state(self.fvm_model)
 
-    def update(self, z, H_jac, h_func):
-        """EKF update step (no changes needed for augmented state here)."""
-        S = H_jac @ self.P @ H_jac.T + self.R
+    def update(self, z, H_jac, h_func, R_override=None):
+        """EKF update step. Can accept a custom R matrix for fault handling."""
+        R = R_override if R_override is not None else self.R
+        S = H_jac @ self.P @ H_jac.T + R
         K = self.P @ H_jac.T @ np.linalg.inv(S)
         y = z - h_func(self.x)
         self.x = self.x + K @ y
