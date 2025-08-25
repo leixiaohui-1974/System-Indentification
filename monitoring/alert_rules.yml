@@ -1,0 +1,117 @@
+# 告警规则配置文件
+groups:
+  - name: digital-twin-alerts
+    rules:
+      # 系统可用性告警
+      - alert: SystemDown
+        expr: up{job="digital-twin-system"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "数字孪生系统宕机"
+          description: "数字孪生水力系统服务不可用，持续时间超过1分钟"
+
+      # 高CPU使用率告警
+      - alert: HighCPUUsage
+        expr: 100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "CPU使用率过高"
+          description: "CPU使用率超过80%，持续时间超过2分钟"
+
+      # 高内存使用率告警
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 85
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "内存使用率过高"
+          description: "内存使用率超过85%，持续时间超过2分钟"
+
+      # 异常水位告警
+      - alert: AbnormalWaterLevel
+        expr: water_level_upstream > 5 or water_level_upstream < 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "异常水位"
+          description: "上游水位异常，超过正常范围(1-5米)"
+
+      # 异常流量告警
+      - alert: AbnormalFlowRate
+        expr: flow_rate_downstream > 100 or flow_rate_downstream < 10
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "异常流量"
+          description: "下游流量异常，超过正常范围(10-100立方米/秒)"
+
+      # 参数估计异常告警
+      - alert: ParameterEstimationAnomaly
+        expr: abs(manning_coefficient_estimate - 0.025) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "参数估计异常"
+          description: "曼宁系数估计值偏离正常范围超过0.01"
+
+      # 故障检测告警
+      - alert: FaultDetected
+        expr: fault_detection_status == 1
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "检测到系统故障"
+          description: "故障检测系统检测到异常，需要立即处理"
+
+  - name: database-alerts
+    rules:
+      # 数据库连接数告警
+      - alert: HighDatabaseConnections
+        expr: pg_stat_database_numbackends > 50
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "数据库连接数过高"
+          description: "数据库连接数超过50个"
+
+      # 数据库死锁告警
+      - alert: DatabaseDeadlocks
+        expr: rate(pg_stat_database_deadlocks[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "数据库死锁"
+          description: "检测到数据库死锁事件"
+
+  - name: api-alerts
+    rules:
+      # API错误率告警
+      - alert: HighAPIErrorRate
+        expr: rate(http_requests_total{code=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API错误率过高"
+          description: "API错误率超过5%，持续时间超过2分钟"
+
+      # API响应时间告警
+      - alert: HighAPIResponseTime
+        expr: rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m]) > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API响应时间过长"
+          description: "API平均响应时间超过2秒，持续时间超过2分钟"

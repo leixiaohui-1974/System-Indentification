@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # 数字孪生水力系统主服务
+  digital-twin:
+    build: .
+    container_name: digital_twin_hydraulic_system
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - DATABASE_URL=sqlite:///./data/system.db
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - digital_twin_network
+
+  # 数据库服务（可选）
+  database:
+    image: postgres:13
+    container_name: digital_twin_database
+    environment:
+      POSTGRES_DB: digital_twin
+      POSTGRES_USER: dt_user
+      POSTGRES_PASSWORD: dt_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - digital_twin_network
+
+  # Redis缓存服务（可选）
+  redis:
+    image: redis:6-alpine
+    container_name: digital_twin_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - digital_twin_network
+
+  # 前端服务（如果需要独立部署）
+  frontend:
+    build: ./frontend
+    container_name: digital_twin_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - digital-twin
+    restart: unless-stopped
+    networks:
+      - digital_twin_network
+
+  # Nginx反向代理（生产环境）
+  nginx:
+    image: nginx:alpine
+    container_name: digital_twin_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - digital-twin
+      - frontend
+    restart: unless-stopped
+    networks:
+      - digital_twin_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  digital_twin_network:
+    driver: bridge

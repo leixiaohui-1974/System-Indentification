@@ -1,0 +1,169 @@
+---
+# 命名空间
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: digital-twin-system
+
+---
+# ConfigMap for application configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: digital-twin-config
+  namespace: digital-twin-system
+data:
+  LOG_LEVEL: "INFO"
+  DATABASE_URL: "sqlite:///data/system.db"
+
+---
+# Secret for sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digital-twin-secret
+  namespace: digital-twin-system
+type: Opaque
+data:
+  # 注意：实际部署时应使用base64编码的真实值
+  database-password: "cGFzc3dvcmQ="  # password (base64 encoded)
+
+---
+# 持久卷声明
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: digital-twin-data
+  namespace: digital-twin-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digital-twin-app
+  namespace: digital-twin-system
+  labels:
+    app: digital-twin
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: digital-twin
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: digital-twin
+        tier: backend
+    spec:
+      containers:
+      - name: digital-twin-api
+        image: digital-twin-hydraulic-system:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: digital-twin-config
+              key: LOG_LEVEL
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: digital-twin-config
+              key: DATABASE_URL
+        volumeMounts:
+        - name: data-storage
+          mountPath: /app/data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: data-storage
+        persistentVolumeClaim:
+          claimName: digital-twin-data
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: digital-twin-service
+  namespace: digital-twin-system
+spec:
+  selector:
+    app: digital-twin
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+
+---
+# Ingress (需要Ingress控制器)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: digital-twin-ingress
+  namespace: digital-twin-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: digital-twin.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: digital-twin-service
+            port:
+              number: 80
+
+---
+# Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: digital-twin-hpa
+  namespace: digital-twin-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: digital-twin-app
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
